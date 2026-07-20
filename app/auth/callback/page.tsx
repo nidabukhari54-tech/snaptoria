@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
 
 export default function AuthCallbackPage() {
   const router = useRouter()
@@ -10,37 +11,29 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        const { createClient } = await import('@supabase/supabase-js')
-        const supabase = createClient(
-          process.env.NEXT_PUBLIC_SUPABASE_URL!,
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-          {
-            auth: {
-              flowType: 'pkce',
-              autoRefreshToken: true,
-              persistSession: true,
-              detectSessionInUrl: true,
-              storage: window.localStorage
-            }
-          }
-        )
-
-        const params = new URLSearchParams(window.location.search)
-        const code = params.get('code')
-
-        if (!code) {
-          router.push('/login?error=no_code')
+        const { data, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Session error:', error.message)
+          router.push('/login?error=auth_callback_failed')
           return
         }
 
-        const { error } = await supabase.auth.exchangeCodeForSession(code)
-
-        if (error) {
-          console.error('Exchange error:', error.message)
-          router.push('/login?error=auth_callback_failed')
-        } else {
+        if (data.session) {
           router.push('/dashboard')
+          return
         }
+
+        // No session yet - wait briefly and check again
+        setTimeout(async () => {
+          const { data: retryData, error: retryError } = await supabase.auth.getSession()
+          if (retryData?.session) {
+            router.push('/dashboard')
+          } else {
+            router.push('/login?error=auth_callback_failed')
+          }
+        }, 2000)
+
       } catch (err) {
         console.error('Callback error:', err)
         router.push('/login?error=auth_callback_failed')
