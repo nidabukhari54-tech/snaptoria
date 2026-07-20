@@ -3,33 +3,47 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
 
 export default function AuthCallbackPage() {
   const router = useRouter()
 
   useEffect(() => {
     const handleCallback = async () => {
-      const params = new URLSearchParams(window.location.search)
-      const code = params.get('code')
-      
-      if (!code) {
-        router.push('/login?error=auth_callback_failed')
-        return
-      }
+      try {
+        const { createClient } = await import('@supabase/supabase-js')
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          {
+            auth: {
+              flowType: 'pkce',
+              autoRefreshToken: true,
+              persistSession: true,
+              detectSessionInUrl: true,
+              storage: window.localStorage
+            }
+          }
+        )
 
-      const { error } = await supabase.auth.exchangeCodeForSession(code)
-      
-      if (error) {
-        console.error('Auth callback error:', error)
+        const params = new URLSearchParams(window.location.search)
+        const code = params.get('code')
+
+        if (!code) {
+          router.push('/login?error=no_code')
+          return
+        }
+
+        const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+        if (error) {
+          console.error('Exchange error:', error.message)
+          router.push('/login?error=auth_callback_failed')
+        } else {
+          router.push('/dashboard')
+        }
+      } catch (err) {
+        console.error('Callback error:', err)
         router.push('/login?error=auth_callback_failed')
-      } else {
-        router.push('/dashboard')
       }
     }
 
