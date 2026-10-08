@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.svg',
   },
+  verification: {
+    google: 'vaKnJgCO3HqzjqDlYa76SFTBxSLKN8G62uZTKJQMTgg',
+  },
   openGraph: {
     title: 'Snaptoria - Free Online Image Tools',
     description: '20 free tools: compress images, resize photos, convert formats, create PDFs. All processing happens in your browser for complete privacy.',
