@@ -12,6 +12,7 @@ import {
   ArrowRight
 } from 'lucide-react'
 import * as Icons from 'lucide-react'
+import { OrganizationSchema, WebsiteSchema } from '@/components/schema'
 
 export default function HomePage() {
   const LucideIcon = (name: string) => {
@@ -21,7 +22,10 @@ export default function HomePage() {
   }
 
   return (
-    <div>
+    <>
+      <OrganizationSchema />
+      <WebsiteSchema />
+      <div>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-sky-50 via-white to-blue-50 py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNlMmU4ZjAiIGZpbGwtb3BhY2l0eT0iMC40Ij48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxLjUiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-60" />
@@ -355,5 +359,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+    </>
   )
 }

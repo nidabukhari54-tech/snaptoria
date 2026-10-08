@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { ChevronLeft, ArrowRight } from 'lucide-react'
 import { tools, Tool } from '@/lib/tools'
+import { ToolSchema, FaqSchema } from '@/components/schema'
 
 interface ToolLayoutProps {
   tool: Tool
@@ -368,7 +369,10 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
   const relatedTools = tools.filter((t) => t.id !== tool.id && t.category === tool.category).slice(0, 3)
 
   return (
-    <div className="container py-8 md:py-12">
+    <>
+      <ToolSchema tool={tool} />
+      {content && <FaqSchema faqs={content.faqs} />}
+      <div className="container py-8 md:py-12">
       <div className="mb-8">
         <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4">
           <ChevronLeft className="h-4 w-4 mr-1" />
@@ -446,5 +450,6 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
         </section>
       )}
     </div>
+    </>
   )
 }
