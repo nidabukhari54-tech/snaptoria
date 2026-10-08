@@ -5,17 +5,26 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { ChatWidget } from '@/components/chat-widget'
 import { Toaster } from '@/components/ui/toaster'
+import { SITE_URL, SITE_NAME } from '@/lib/site'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Snaptoria - Free Online Image Tools | Compress, Resize, Convert',
   description: '20 free browser-based image and document tools. Compress images, resize photos, convert HEIC to JPG, create PDFs, extract colors, remove EXIF metadata. 100% private - files never leave your device.',
+  alternates: {
+    canonical: '/',
+  },
+  icons: {
+    icon: '/favicon.svg',
+  },
   openGraph: {
     title: 'Snaptoria - Free Online Image Tools',
     description: '20 free tools: compress images, resize photos, convert formats, create PDFs. All processing happens in your browser for complete privacy.',
     type: 'website',
-    url: 'https://snaptoria.com',
+    url: SITE_URL,
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',

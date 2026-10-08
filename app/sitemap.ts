@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next'
 import { tools } from '@/lib/tools'
+import { SITE_URL } from '@/lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://snaptoria.com'
+  const baseUrl = SITE_URL
 
   const toolPages = tools.map((tool) => ({
     url: `${baseUrl}/tools/${tool.id}`,

@@ -1,5 +1,6 @@
 import Script from 'next/script'
 import { tools, type Tool } from '@/lib/tools'
+import { SITE_URL, SITE_NAME } from '@/lib/site'
 
 interface ToolSchemaProps {
   tool: Tool
@@ -18,11 +19,6 @@ export function ToolSchema({ tool }: ToolSchemaProps) {
       price: '0',
       priceCurrency: 'USD',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '1247',
-    },
   }
 
   return (
@@ -37,10 +33,10 @@ export function OrganizationSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Snaptoria',
+    name: SITE_NAME,
     description: '20 browser-based image and document tools. All processing happens locally on your device.',
-    url: 'https://snaptoria.com',
-    logo: 'https://snaptoria.com/logo.png',
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.svg`,
     sameAs: [
       'https://twitter.com/snaptoria',
     ],
@@ -58,12 +54,12 @@ export function WebsiteSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Snaptoria',
-    url: 'https://snaptoria.com',
+    name: SITE_NAME,
+    url: SITE_URL,
     description: '20 browser-based image and document tools. All processing happens locally on your device.',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://snaptoria.com/tools?q={search_term_string}',
+      target: `${SITE_URL}/tools?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   }
