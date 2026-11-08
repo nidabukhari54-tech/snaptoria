@@ -50,8 +50,8 @@ export const tools = [
     description: 'Check image DPI online. View resolution, pixel dimensions, and print size at 300 DPI. Essential for print preparation and quality verification.',
     icon: 'Ruler',
     category: 'Image Analysis',
-    metaTitle: 'Check Image DPI Online Free - Resolution Checker for Print',
-    metaDesc: 'Free DPI checker online. Check image resolution, pixel dimensions, and print size at 300 DPI. Essential for print preparation and quality verification.'
+    metaTitle: 'DPI Checker - Check Image DPI Online Free for Print',
+    metaDesc: 'Free DPI checker online. Find out how to check the DPI of an image, see pixel dimensions and print size at 300 DPI, and check if your image is 300 DPI for printing.'
   },
   {
     id: 'exif-viewer',
@@ -77,8 +77,8 @@ export const tools = [
     description: 'Check if image is corrupted. Validate image files before upload. Detect broken image files and diagnose why images won not open.',
     icon: 'AlertTriangle',
     category: 'Image Analysis',
-    metaTitle: 'Check if Image is Corrupted - Validate Image Files Online',
-    metaDesc: 'Free corrupt image detector. Validate image files before upload. Fix image won not open issues. Diagnose broken image files instantly.'
+    metaTitle: 'Corrupt Image Checker - Check if Image is Corrupted Online Free',
+    metaDesc: 'Free corrupt image checker online. Check if a JPG, PNG or WebP image is corrupted, validate files before upload, and diagnose broken images that will not open. No upload to a server.'
   },
   {
     id: 'image-rotator',
@@ -176,8 +176,8 @@ export const tools = [
     description: 'Free receipt generator for business transactions. Create receipt PDF online for expense tracking and customer records. Professional formatting.',
     icon: 'Receipt',
     category: 'Document Tools',
-    metaTitle: 'Free Receipt Generator - Create Receipt PDF Online',
-    metaDesc: 'Free receipt generator. Create professional receipts for business transactions. Expense tracking, customer records. Download PDF instantly.'
+    metaTitle: 'Free Receipt Generator & Receipt Maker - Create Receipts Online',
+    metaDesc: 'Free receipt maker and generator. Create professional receipts online for business, restaurant and expense records. Itemized receipts, download as PDF instantly. No signup, no watermark.'
   }
 ] as const
 

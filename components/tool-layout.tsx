@@ -115,13 +115,17 @@ const toolContent: Record<string, ToolContent> = {
       { step: 2, text: 'Review the displayed DPI, pixel dimensions, and print size at 300 DPI.' },
       { step: 3, text: 'Use the information to determine if your image meets print requirements.' }
     ],
-    angle: 'DPI (dots per inch) measures print resolution—how many ink dots appear in each inch of printed output. Print services typically require 300 DPI for photographs and marketing materials, while newspapers may accept 150-200 DPI. Web images use PPI (pixels per inch) and are typically 72-96 PPI, but screen resolution is measured differently than print. An image DPI checker helps verify your files meet specifications before sending to print.',
+    angle: 'DPI (dots per inch) measures print resolution — how many ink dots appear in each inch of printed output. Print services typically require 300 DPI for photographs and marketing materials, while newspapers may accept 150-200 DPI. The quickest way to know your print quality is simple maths: divide the pixel width by the print width in inches. A 3000 x 2400 pixel image printed at 10 x 8 inches is exactly 300 DPI. On Windows you can also right-click a photo, open Properties and check the Details tab for horizontal and vertical resolution, and on a Mac you can open the image in Preview and use Tools, then Show Inspector. An online DPI checker like this one is faster and more complete, because it also shows the largest print size your image can produce at 300 DPI, which is the number print shops actually care about.',
     privacy: 'Image analysis happens entirely in your browser—your files are never uploaded to any server.',
     faqs: [
-      { question: 'How to check DPI of an image for printing?', answer: 'Upload your image and the tool displays the embedded DPI metadata alongside pixel dimensions. Most professional print services require 300 DPI minimum. If your image shows 72 DPI (common for web images), you may need to resize or use a higher resolution source for print quality.' },
-      { question: 'What does this image resolution checker show?', answer: 'The tool reveals embedded DPI metadata, exact pixel width and height, file size in KB/MB, and the maximum print size achievable at 300 DPI standard print quality.' },
-      { question: 'Why would I need a DPI checker for printing?', answer: 'Print services reject low-resolution images that appear pixelated in the final printed piece. Checking DPI before submitting files saves time and money by catching potential quality issues early. Professional photographers, designers, and marketers all benefit from verifying resolution before print runs.' },
-      { question: 'What is the difference between DPI and resolution?', answer: 'DPI measures print density (dots per inch), while resolution refers to total pixel count (width x height). An image can have high pixel resolution but low DPI if not properly configured for print. Both metrics together determine print quality.' }
+      { question: 'How to check the DPI of an image?', answer: 'Upload your image above and this DPI checker instantly displays the embedded DPI metadata, the exact pixel dimensions, and the maximum print size at 300 DPI. There is nothing to install and the file never leaves your browser.' },
+      { question: 'How do I check the DPI of an image on Windows?', answer: 'Right-click the image file, choose Properties, open the Details tab, and look for Horizontal resolution and Vertical resolution, which are shown in DPI. For print size at 300 DPI as well, upload the image to this online checker instead.' },
+      { question: 'How do I check the DPI of an image on a Mac?', answer: 'Open the image in Preview, then choose Tools and Show Inspector. The inspector shows the image DPI along with its pixel dimensions. This online DPI checker gives you the same information plus the print size calculation in one step.' },
+      { question: 'How can I tell if my image is 300 DPI?', answer: 'Divide the pixel width by the width you want to print in inches. If the result is 300 or more, the image is 300 DPI at that size. For example, a 2400-pixel-wide image printed 8 inches wide is 300 DPI. This tool does the calculation for you and shows the largest size that stays at 300 DPI.' },
+      { question: 'What DPI is my image if it came from my phone or the web?', answer: 'Most phone photos and web images carry 72 or 96 DPI metadata, which says nothing about their quality by itself. What matters is the pixel count: a 4000 x 3000 phone photo still prints sharply at 300 DPI up to about 13 x 10 inches. Upload it here to see its exact print size.' },
+      { question: 'What is the difference between DPI and PPI?', answer: 'PPI (pixels per inch) describes an image file on a screen, while DPI (dots per inch) describes printed output from a printer. In everyday use, and in most print shop requirements, the terms are used interchangeably — when a printer asks for 300 DPI, they mean a file with 300 pixels per printed inch.' },
+      { question: 'Why would I need a DPI checker for printing?', answer: 'Print services reject low-resolution images that appear pixelated in the final printed piece. Checking DPI before submitting files saves time and money by catching quality issues early. Photographers, designers, and marketers all verify resolution before print runs.' },
+      { question: 'What does this image resolution checker show?', answer: 'The tool reveals the embedded DPI metadata, the exact pixel width and height, the file size, and the maximum print size achievable at 300 DPI standard print quality, so you know immediately whether your image is ready for print.' },
     ]
   },
   'exif-viewer': {
@@ -166,13 +170,17 @@ const toolContent: Record<string, ToolContent> = {
       { step: 2, text: 'The tool attempts to load and decode the image completely.' },
       { step: 3, text: 'View the result: either "Valid Image" or details about the corruption detected.' }
     ],
-    angle: 'Common causes of image corruption include incomplete downloads, interrupted file transfers, storage device errors, and software crashes during save operations. A corrupt image might display partially, show artifacts, or fail to open entirely. This tool catches issues before you send files to print, share with clients, or upload to critical platforms.',
+    angle: 'Common causes of image corruption include incomplete downloads, interrupted file transfers, failing SD cards and storage errors, messaging apps that recompress files badly, and software crashes during saving. A corrupt image might display only partially, show grey bands or garbled colours, produce an “image check failed” style error on upload forms, or fail to open entirely. JPG files usually break when their header or scan data is damaged, while PNG files fail a strict checksum test when even a small part of the data changes. This corrupt image checker fully decodes your file the same way a browser or upload form does, so a pass here means the file is structurally sound, and a failure tells you the file itself — not the website or app — is the problem. Checking before you send files to print, share them with clients, or submit them to an application portal catches embarrassing failures early.',
     privacy: 'Image validation happens entirely in your browser—files never leave your device.',
     faqs: [
-      { question: 'My image won\'t open—how do I fix it?', answer: 'Upload the file to see if our tool can detect the type of corruption. Some partially corrupted images may still be viewable. If the file is severely damaged, restoration options may be limited—try re-downloading from the original source or checking your backup.' },
-      { question: 'How does this detect broken image file problems?', answer: 'The tool attempts to fully decode the image data using the browser\'s native image rendering. If the browser cannot parse the file structure or decode the pixel data, the image is flagged as corrupted with details about where the problem was detected.' },
-      { question: 'Can I validate image file online before important uploads?', answer: 'Yes—upload questionable files to verify they are valid before sending to print services, clients, or critical platforms. Early detection prevents embarrassing situations with damaged files.' },
-      { question: 'What information does the checker show about corrupt files?', answer: 'For valid images, you see dimensions and file size. For corrupt files, the tool indicates whether the header is readable, if pixel data is damaged, and whether the corruption is recoverable or fatal.' }
+      { question: 'What is a corrupt image checker and how does it work?', answer: 'A corrupt image checker tests whether an image file is structurally valid by attempting to load and fully decode it. If the file header is damaged or the image data cannot be decoded, the checker flags it as corrupted and shows what went wrong. This tool runs the test instantly in your browser.' },
+      { question: 'How do I check if an image is corrupted?', answer: 'Upload the image above. The tool attempts to decode the complete file: if it succeeds, you see “Valid Image” with the dimensions and file size. If decoding fails or stops partway, the image is corrupt and the tool reports where the problem was detected.' },
+      { question: 'Why does my image say it failed or will not open?', answer: 'Upload errors and “won’t open” problems are usually caused by an incomplete download, a transfer that was interrupted, or damage on the memory card or drive the file was stored on. Run the file through this checker: if it fails here too, the file itself is damaged rather than the app or website you were using.' },
+      { question: 'Can a corrupted JPG or PNG be repaired?', answer: 'Sometimes. If only the header is damaged, re-saving the image in an editor or converting it with a tolerant tool can rebuild the file. If the scan data itself is missing — common after interrupted downloads — the lost part cannot be reconstructed, and re-downloading from the original source or restoring a backup is the reliable fix.' },
+      { question: 'Why does my photo look fine as a thumbnail but fail when opened?', answer: 'Many apps store a small preview separately from the full image data. The thumbnail can survive even when the full-resolution data is damaged, which is why a photo can look fine in a gallery but fail in this checker or in an editor. That is a classic sign of real file corruption.' },
+      { question: 'My image won’t open — how do I fix it?', answer: 'First confirm the damage with this tool. Then try, in order: re-download or re-copy the file from the original source, open it in a different app or browser, and restore it from a backup or cloud copy. If the checker says the file is valid, the problem is with the app you opened it in, not the image.' },
+      { question: 'Can I validate an image file online before an important upload?', answer: 'Yes — upload questionable files here to verify they are valid before sending them to print services, clients, school or visa application portals, or critical platforms. Many upload forms reject damaged files with vague errors, so checking first tells you exactly which file is at fault.' },
+      { question: 'Which image formats can this broken image checker test?', answer: 'The checker tests the formats your browser can decode, including JPG and JPEG, PNG, WebP, GIF, BMP, and AVIF. For valid images it shows dimensions and file size; for corrupt files it indicates whether the header is readable, whether the pixel data is damaged, and whether the corruption looks recoverable or fatal.' },
     ]
   },
   'image-rotator': {
@@ -353,20 +361,34 @@ const toolContent: Record<string, ToolContent> = {
       { step: 2, text: 'Add purchased items or services with prices.' },
       { step: 3, text: 'Download your professional receipt as a PDF.' }
     ],
-    angle: 'Receipts serve important business functions: expense tracking for tax purposes, documentation for reimbursements, proof of purchase for warranty claims, and transaction records for bookkeeping. Use this generator for creating receipts for real, documented transactions in your business operations. Professional formatting makes records clear and audit-ready.',
+    angle: 'Receipts serve important business functions: expense tracking for tax purposes, documentation for reimbursements, proof of purchase for warranty claims, and transaction records for bookkeeping. This free receipt maker works for many everyday cases — a restaurant or café issuing a customer receipt, a freelancer billing a client, a small shop recording a cash sale, or an employee documenting an expense for reimbursement. Add each item on its own line with quantity and price to create a clear itemized receipt, include tax where it applies, and note the payment method (cash, card, or transfer). Use this generator to create receipts for real, documented transactions in your business operations. Professional formatting makes records clear and audit-ready, and the finished receipt downloads as a clean PDF you can print, email, or attach to an expense report.',
     privacy: 'Receipt generation happens entirely in your browser—your transaction details never leave your device.',
     faqs: [
-      { question: 'How do I make a receipt online?', answer: 'Enter your business information, customer name if applicable, items purchased, and payment method. Click to generate and download your receipt as a PDF. No account needed, works immediately.' },
-      { question: 'Is this receipt template generator free?', answer: 'Yes, completely free with no limits on the number of receipts you can generate. No watermarks, no required signup, no hidden costs. Works for businesses of any size.' },
-      { question: 'How do I create receipt PDF free for business records?', answer: 'Fill in the transaction details, itemize purchases with prices, specify payment method and date, and download the PDF. Keep records for tax documentation, expense verification, and customer service reference.' },
-      { question: 'What payment methods can I include on receipts?', answer: 'Enter any payment method: cash, credit card, debit card, check, bank transfer, PayPal, Venmo, or any other payment type your business accepts. The field accepts custom text for any payment method.' }
+      { question: 'How do I make a receipt online?', answer: 'Enter your business information, the customer name if applicable, the items purchased with prices, and the payment method. Click generate and download your receipt as a PDF. No account is needed and it works immediately in your browser.' },
+      { question: 'Is this receipt maker really free, with no watermark?', answer: 'Yes. This online receipt maker is completely free with no limits on the number of receipts you can generate. There are no watermarks, no required signup, and no hidden costs, whether you make one receipt or hundreds.' },
+      { question: 'How do I make a restaurant receipt?', answer: 'Enter your restaurant name and details at the top, then add each dish or drink as a line item with its price. Add tax and a total, note whether the customer paid by cash or card, and download the receipt as a PDF ready to print or email.' },
+      { question: 'Can I create an itemized receipt for an expense report?', answer: 'Yes. Add every purchase as a separate line item with quantity and price so the receipt is fully itemized. Expense teams and accountants prefer itemized receipts because they show exactly what was bought, and the PDF format attaches easily to reimbursement forms.' },
+      { question: 'What should a receipt include?', answer: 'A complete receipt includes the business name and contact details, the date of the transaction, a receipt number, each item or service with its price, any tax charged, the total amount, and the payment method. This receipt template covers all of these fields.' },
+      { question: 'How do I create a receipt PDF for business records?', answer: 'Fill in the transaction details, itemize the purchases with prices, specify the payment method and date, and download the PDF. Keep the file for tax documentation, expense verification, bookkeeping, and customer service reference.' },
+      { question: 'Can freelancers and small businesses use this receipt generator?', answer: 'Yes. Freelancers, sole traders, market sellers, and small shops use this receipt creator to give customers professional proof of payment without buying accounting software. It works for services as well as products — just describe the service as a line item.' },
+      { question: 'What payment methods can I include on a receipt?', answer: 'Enter any payment method: cash, credit card, debit card, check, bank transfer, PayPal, Venmo, or any other payment type your business accepts. The field accepts custom text, so the receipt always matches how the customer actually paid.' },
     ]
   }
 }
 
 export function ToolLayout({ tool, children }: ToolLayoutProps) {
   const content = toolContent[tool.id]
-  const relatedTools = tools.filter((t) => t.id !== tool.id && t.category === tool.category).slice(0, 3)
+  const priorityToolIds = ['image-compressor', 'image-to-pdf', 'image-format-converter', 'qr-code-reader', 'corrupt-image-detector', 'dpi-checker', 'receipt-generator', 'image-resizer']
+  const sameCategory = tools.filter((t) => t.id !== tool.id && t.category === tool.category)
+  const priorityTools = priorityToolIds
+    .map((id) => tools.find((t) => t.id === id))
+    .filter((t): t is Tool => Boolean(t) && t!.id !== tool.id)
+  const seenIds = new Set<string>()
+  const relatedTools = [...sameCategory, ...priorityTools].filter((t) => {
+    if (seenIds.has(t.id)) return false
+    seenIds.add(t.id)
+    return true
+  }).slice(0, 6)
 
   return (
     <>
@@ -431,7 +453,7 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
 
       {relatedTools.length > 0 && (
         <section className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Tools</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Related & Popular Tools</h2>
           <div className="grid md:grid-cols-3 gap-4">
             {relatedTools.map((relatedTool) => (
               <Link key={relatedTool.id} href={`/tools/${relatedTool.id}`}>
