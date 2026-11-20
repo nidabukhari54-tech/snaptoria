@@ -45,6 +45,15 @@ export const tools = [
     metaDesc: 'Convert JPG to PDF online free. Combine multiple images into one PDF. PNG, WebP, GIF to PDF. Browser-based, no upload to server.'
   },
   {
+    id: 'pdf-dpi-checker',
+    name: 'PDF DPI Checker',
+    description: 'Check PDF DPI online free. Inspect every image embedded in a PDF, see its pixel size, the size it prints at, and its effective DPI, and find out if your PDF is print-ready at 300 DPI.',
+    icon: 'FileSearch',
+    category: 'Document Tools',
+    metaTitle: 'PDF DPI Checker - Check PDF DPI & Image Resolution Online Free',
+    metaDesc: 'Free PDF DPI checker online. Check the DPI of a PDF by inspecting every embedded image — pixel dimensions, printed size and effective DPI — and see if it meets the 300 DPI print standard. No upload, runs in your browser.'
+  },
+  {
     id: 'dpi-checker',
     name: 'Image DPI Checker',
     description: 'Check image DPI online. View resolution, pixel dimensions, and print size at 300 DPI. Essential for print preparation and quality verification.',
