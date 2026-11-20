@@ -55,12 +55,21 @@ export const tools = [
   },
   {
     id: 'exif-viewer',
-    name: 'EXIF Metadata Viewer & Stripper',
-    description: 'View EXIF data online and remove metadata from images. Strip GPS location, camera info, and date stamps. Protect privacy before sharing.',
+    name: 'EXIF Viewer & Metadata Remover',
+    description: 'Free EXIF viewer online. View photo metadata like camera, GPS location and settings, then remove EXIF data and strip metadata before sharing.',
     icon: 'Info',
     category: 'Image Analysis',
-    metaTitle: 'Remove Metadata from Image - EXIF Viewer & Stripper Free',
-    metaDesc: 'View EXIF data online. Remove GPS location from photos, strip all metadata before sharing. Protect your privacy with our free browser-based tool.'
+    metaTitle: 'EXIF Viewer - View Photo Metadata & Remove EXIF Data Free',
+    metaDesc: 'Free EXIF viewer online. View photo metadata — camera, GPS location, date and settings — then remove metadata from photos and strip EXIF data before sharing. No upload, runs in your browser.'
+  },
+  {
+    id: 'image-resolution-checker',
+    name: 'Image Resolution Checker',
+    description: 'Check image resolution online free. See pixel dimensions, megapixels, aspect ratio, embedded DPI and the largest sharp print size, plus whether the image counts as high resolution.',
+    icon: 'Expand',
+    category: 'Image Analysis',
+    metaTitle: 'Image Resolution Checker - Check Image Resolution Online Free',
+    metaDesc: 'Free image resolution checker. Check the resolution of an image — pixel dimensions, megapixels, aspect ratio and DPI — and learn how to check if an image is high resolution for print, web or social media.'
   },
   {
     id: 'color-palette-extractor',
