@@ -14,7 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: baseUrl,
+      // Trailing slash: Next.js URL-serializes the root canonical to this
+      // exact form, so the sitemap loc matches the homepage canonical.
+      url: `${baseUrl}/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
