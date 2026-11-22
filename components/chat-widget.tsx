@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { MessageCircle, X, Send, User, ArrowRight } from 'lucide-react'
+import { X, Send, User, ArrowRight } from 'lucide-react'
 import { getChatAnswer, QUICK_CHIPS, type ChatLink } from '@/lib/chatbot'
 
 interface ChatWidgetProps {
@@ -63,11 +63,17 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-sky-500 hover:bg-sky-600 z-50"
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-sky-500 hover:bg-sky-600 z-50 overflow-hidden p-0"
         size="icon"
         aria-label="Open Snaptoria Assistant"
       >
-        <MessageCircle className="h-6 w-6" />
+        <Image
+          src="/mascot-shutter.webp"
+          alt=""
+          width={56}
+          height={56}
+          className="h-full w-full rounded-full object-cover"
+        />
       </Button>
     )
   }
@@ -99,9 +105,13 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
           {messages.map((msg, i) => (
             <div key={i} className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : ''}`}>
               {msg.role === 'bot' && (
-                <div className="bg-white border border-sky-100 rounded-full p-1 h-8 w-8 flex items-center justify-center shrink-0">
-                  <Image src="/logo.svg" alt="" width={20} height={20} />
-                </div>
+                <Image
+                  src="/mascot-shutter.webp"
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 rounded-full object-cover ring-1 ring-sky-100 shrink-0"
+                />
               )}
               <div
                 className={`rounded-lg px-3 py-2 text-sm max-w-[80%] ${

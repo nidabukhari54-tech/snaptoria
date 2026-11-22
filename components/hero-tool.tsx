@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { tools } from '@/lib/tools'
 import {
   UploadCloud,
@@ -848,7 +849,24 @@ export function HeroTool() {
     'w-full appearance-none rounded-xl border border-gray-300 bg-white py-2.5 pl-3.5 pr-9 text-sm font-medium text-gray-800 shadow-sm transition-colors focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200'
 
   return (
-    <div className="relative z-10 mx-auto mt-10 max-w-3xl text-left">
+    <div className="relative z-10 mx-auto mt-6 max-w-3xl text-left">
+      {/* Mascot (public/mascot.webp — swap this one file to change the character) */}
+      <div className="pointer-events-none absolute -top-9 right-3 z-20 flex items-end md:-top-12 md:right-6">
+        <div className="relative mb-12 mr-1 hidden max-w-[190px] rounded-2xl bg-white px-3.5 py-2.5 text-[13px] font-medium leading-snug text-gray-700 shadow-xl ring-1 ring-black/5 sm:block">
+          Hi! Drop a file and I&rsquo;ll sort it in seconds.
+          <span aria-hidden className="absolute -right-1 bottom-5 h-3 w-3 rotate-45 bg-white" />
+        </div>
+        <div className="hero-float">
+          <NextImage
+            src="/mascot.webp"
+            alt="Snaptoria mascot"
+            width={128}
+            height={128}
+            priority
+            className="h-[72px] w-[72px] rounded-full object-cover shadow-2xl ring-4 ring-white md:h-28 md:w-28"
+          />
+        </div>
+      </div>
       <div
         className="rounded-3xl bg-white p-5 shadow-2xl ring-1 ring-black/5 sm:p-7"
         onDragOver={(e) => {

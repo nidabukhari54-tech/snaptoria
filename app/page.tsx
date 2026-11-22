@@ -164,13 +164,13 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="container relative pt-16 pb-14 md:pt-24 md:pb-16">
+        <div className="container relative pt-10 pb-10 md:pt-14 md:pb-12">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 text-white ring-1 ring-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 text-white ring-1 ring-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-4">
               <Sparkles className="h-4 w-4" />
               Privacy-first image tools
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
               {tools.length} Tools, One Subscription.
               <br />
               <span className="text-sky-200">Files Never Leave Your Browser.</span>

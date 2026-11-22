@@ -23,10 +23,19 @@ export function Footer() {
       <div className="container py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <Sparkles className="h-6 w-6 text-sky-400" />
-              <span className="text-xl font-bold text-white">Snaptoria</span>
-            </Link>
+            <div className="flex items-center gap-3 mb-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/mascot-photo.webp"
+                alt="Snaptoria mascot"
+                loading="lazy"
+                className="h-16 w-16 md:h-20 md:w-20 rounded-full object-cover shadow-lg ring-2 ring-white/20 shrink-0"
+              />
+              <Link href="/" className="flex items-center gap-2">
+                <Sparkles className="h-6 w-6 text-sky-400" />
+                <span className="text-xl font-bold text-white">Snaptoria</span>
+              </Link>
+            </div>
             <p className="text-sm text-gray-400 mb-4 max-w-xs">
               {tools.length} browser-based image and document tools. Your files never leave your browser.
             </p>
