@@ -1,0 +1,40 @@
+# Snaptoria
+
+> Snaptoria is a suite of 22 free browser-based image and document tools. Every tool runs entirely in the visitor's web browser — files are never uploaded to a server, so photos and documents stay on the user's own device.
+
+## Pricing
+
+- Free: $0 — 10 actions per day across all tools, no signup required.
+- Pro: $9/month — unlimited actions, usage history and priority support.
+- Pricing page: https://snaptoria.vercel.app/pricing
+
+## Tools
+
+- [Image Compressor](https://snaptoria.vercel.app/tools/image-compressor): Compress image online to reduce file size while maintaining quality. Support for JPG, PNG, WebP compression to any target size including 100KB.
+- [Image Resizer](https://snaptoria.vercel.app/tools/image-resizer): Resize image online by pixels or percentage. Perfect for Instagram photos, web banners, and print. Change dimensions without cropping.
+- [Image Cropper](https://snaptoria.vercel.app/tools/image-cropper): Crop image online free with our fast drag-to-crop tool. No download or signup required. Crop photos to any dimension in seconds.
+- [Image Format Converter](https://snaptoria.vercel.app/tools/image-format-converter): Convert image format free between JPG, PNG, WebP, GIF. Includes HEIC to JPG converter for iPhone photos. Instant browser-based conversion.
+- [Image to PDF Converter](https://snaptoria.vercel.app/tools/image-to-pdf): Convert JPG to PDF online free. Combine multiple images into one PDF document. PNG, WebP to PDF converter with instant download.
+- [PDF DPI Checker](https://snaptoria.vercel.app/tools/pdf-dpi-checker): Check PDF DPI online free. Inspect every image embedded in a PDF, see its pixel size, the size it prints at, and its effective DPI, and find out if your PDF is print-ready at 300 DPI.
+- [Image DPI Checker](https://snaptoria.vercel.app/tools/dpi-checker): Check image DPI online. View resolution, pixel dimensions, and print size at 300 DPI. Essential for print preparation and quality verification.
+- [EXIF Viewer & Metadata Remover](https://snaptoria.vercel.app/tools/exif-viewer): Free EXIF viewer online. View photo metadata like camera, GPS location and settings, then remove EXIF data and strip metadata before sharing.
+- [Image Resolution Checker](https://snaptoria.vercel.app/tools/image-resolution-checker): Check image resolution online free. See pixel dimensions, megapixels, aspect ratio, embedded DPI and the largest sharp print size, plus whether the image counts as high resolution.
+- [Color Palette Extractor](https://snaptoria.vercel.app/tools/color-palette-extractor): Extract colors from image and get hex codes. Color palette generator from photos for designers. Dominant color picker with copy buttons.
+- [Corrupt Image Detector](https://snaptoria.vercel.app/tools/corrupt-image-detector): Check if image is corrupted. Validate image files before upload. Detect broken image files and diagnose why images will not open.
+- [Image Rotator/Flipper](https://snaptoria.vercel.app/tools/image-rotator): Rotate image online 90, 180, or 270 degrees. Flip image horizontally or vertically. Mirror photos free in your browser.
+- [Base64 Image Converter](https://snaptoria.vercel.app/tools/base64-converter): Image to Base64 converter for web embedding. Convert base64 to image and vice versa. Generate base64 strings for HTML, CSS, email templates.
+- [Favicon Generator](https://snaptoria.vercel.app/tools/favicon-generator): Generate favicon from image for your website. Create favicon.ico and all sizes: 16x16, 32x32, 180x180, 192x192, 512x512. Download as ZIP.
+- [Image Splitter](https://snaptoria.vercel.app/tools/image-splitter): Split image into grid for Instagram posts. Instagram grid maker to cut image into pieces. Create 2x2, 3x3, custom grids and download as ZIP.
+- [Collage Maker](https://snaptoria.vercel.app/tools/collage-maker): Photo collage maker online free. Combine photos into one image with preset layouts. No watermark, no app download, no signup required.
+- [Aspect Ratio Cropper](https://snaptoria.vercel.app/tools/aspect-ratio-cropper): Crop image to aspect ratio for social media. Presets: 1:1 Instagram, 16:9 YouTube, 9:16 Stories, 4:5 portrait. Perfect crops every time.
+- [Image Filters](https://snaptoria.vercel.app/tools/image-filters): Add filter to photo online. Apply black and white, sepia, brightness, contrast, saturation. Live preview with instant download.
+- [Text Watermark Adder](https://snaptoria.vercel.app/tools/text-watermark): Add watermark to image online free. Copyright watermark generator for photographers. Custom text, position, opacity, color options.
+- [QR Code Reader](https://snaptoria.vercel.app/tools/qr-code-reader): Scan QR code from image. Decode QR codes without camera or app. Read QR from screenshots. Instant browser-based QR scanner.
+- [Invoice Generator](https://snaptoria.vercel.app/tools/invoice-generator): Free invoice generator online. Create professional invoices with line items, logo, tax calculation. Download as PDF instantly. No signup.
+- [Receipt Generator](https://snaptoria.vercel.app/tools/receipt-generator): Free receipt generator for business transactions. Create receipt PDF online for expense tracking and customer records. Professional formatting.
+
+## Main pages
+
+- [Home](https://snaptoria.vercel.app/): All 22 tools and the in-browser hero tool.
+- [All Tools](https://snaptoria.vercel.app/tools): The full tool index.
+- [Pricing](https://snaptoria.vercel.app/pricing): Free and Pro plans.

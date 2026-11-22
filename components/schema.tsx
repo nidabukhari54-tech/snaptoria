@@ -1,6 +1,21 @@
-import Script from 'next/script'
 import { tools, type Tool } from '@/lib/tools'
 import { SITE_URL, SITE_NAME } from '@/lib/site'
+
+// JSON-LD is rendered as a plain <script> tag, NOT next/script.
+// next/script's default strategy (afterInteractive) only injects the tag
+// through client-side JavaScript when the component tree is a client
+// component (as ToolLayout is), so the schema never appears in the
+// initial server-rendered HTML and is invisible to crawlers that do not
+// execute JavaScript. A plain <script> element is emitted in the SSR
+// HTML on every page.
+function JsonLd({ data }: { data: Record<string, unknown> }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  )
+}
 
 interface ToolSchemaProps {
   tool: Tool
@@ -9,24 +24,83 @@ interface ToolSchemaProps {
 export function ToolSchema({ tool }: ToolSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    '@type': 'WebApplication',
     name: tool.name,
+    url: `${SITE_URL}/tools/${tool.id}`,
     description: tool.description,
     applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'Any',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
+    operatingSystem: 'Any (browser-based)',
+    browserRequirements: 'Runs entirely in your web browser',
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free plan: 10 actions per day, no signup required',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Pro',
+        price: '9',
+        priceCurrency: 'USD',
+        description: 'Pro plan: $9/month, unlimited actions',
+      },
+    ],
   }
 
-  return (
-    <Script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return <JsonLd data={schema} />
+}
+
+export function BreadcrumbSchema({ tool }: ToolSchemaProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `${SITE_URL}/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Tools',
+        item: `${SITE_URL}/tools`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: tool.name,
+        item: `${SITE_URL}/tools/${tool.id}`,
+      },
+    ],
+  }
+
+  return <JsonLd data={schema} />
+}
+
+interface HowToSchemaProps {
+  name: string
+  steps: { step: number; text: string }[]
+}
+
+export function HowToSchema({ name, steps }: HowToSchemaProps) {
+  if (!steps?.length) return null
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    step: steps.map((s) => ({
+      '@type': 'HowToStep',
+      position: s.step,
+      text: s.text,
+    })),
+  }
+
+  return <JsonLd data={schema} />
 }
 
 export function OrganizationSchema() {
@@ -42,12 +116,7 @@ export function OrganizationSchema() {
     ],
   }
 
-  return (
-    <Script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return <JsonLd data={schema} />
 }
 
 export function WebsiteSchema() {
@@ -64,12 +133,7 @@ export function WebsiteSchema() {
     },
   }
 
-  return (
-    <Script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return <JsonLd data={schema} />
 }
 
 export function ToolListSchema() {
@@ -87,12 +151,7 @@ export function ToolListSchema() {
     })),
   }
 
-  return (
-    <Script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return <JsonLd data={schema} />
 }
 
 interface FaqSchemaProps {
@@ -115,10 +174,5 @@ export function FaqSchema({ faqs }: FaqSchemaProps) {
     })),
   }
 
-  return (
-    <Script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return <JsonLd data={schema} />
 }

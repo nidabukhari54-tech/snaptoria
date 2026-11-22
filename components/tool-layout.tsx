@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { ChevronLeft, ArrowRight } from 'lucide-react'
 import { tools, Tool } from '@/lib/tools'
-import { ToolSchema, FaqSchema } from '@/components/schema'
+import { ToolSchema, FaqSchema, BreadcrumbSchema, HowToSchema } from '@/components/schema'
 
 interface ToolLayoutProps {
   tool: Tool
@@ -437,7 +437,9 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
   return (
     <>
       <ToolSchema tool={tool} />
+      <BreadcrumbSchema tool={tool} />
       {content && <FaqSchema faqs={content.faqs} />}
+      {content && <HowToSchema name={`How to Use ${tool.name}`} steps={content.howTo} />}
       <div className="container py-8 md:py-12">
       <div className="mb-8">
         <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4">
