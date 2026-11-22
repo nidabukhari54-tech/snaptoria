@@ -15,11 +15,14 @@ import {
   Download,
   Printer,
   Globe,
-  Briefcase
+  Briefcase,
+  Minus,
+  X
 } from 'lucide-react'
 import { OrganizationSchema, WebsiteSchema, ToolListSchema, FaqSchema } from '@/components/schema'
 import { ToolGridTabs } from '@/components/tool-grid-tabs'
 import { HeroTool } from '@/components/hero-tool'
+import { ToolCardVisual } from '@/components/tool-card-visual'
 
 const homeFaqs = [
   {
@@ -104,21 +107,25 @@ const specialistToolIds = ['dpi-checker', 'pdf-dpi-checker', 'corrupt-image-dete
 
 const comparisonRows = [
   {
+    typicalMark: 'minus',
     label: 'Where your files are processed',
     snaptoria: 'In your browser, on your own device',
     typical: 'Uploaded to the company\u2019s servers'
   },
   {
+    typicalMark: 'minus',
     label: 'Copies of your files on a server',
     snaptoria: 'None — nothing is uploaded, so nothing is stored',
     typical: 'Kept on their servers for a period before deletion — from around an hour to 48 hours in the published policies of popular tools'
   },
   {
+    typicalMark: 'minus',
     label: 'Free-plan limits',
     snaptoria: `10 actions per day across all ${tools.length} tools; Pro ($9/month) is unlimited`,
     typical: 'Per-task file-count and size caps are common — for example, 1 file per crop or 20 images per session on popular tools'
   },
   {
+    typicalMark: 'x',
     label: 'Specialist checkers (image DPI, PDF DPI, corrupt files)',
     snaptoria: 'Built in',
     typical: 'Not offered by the major image suites'
@@ -150,6 +157,73 @@ function SectionHost({ src, line }: { src: string; line: string }) {
         />
         {line}
       </div>
+    </div>
+  )
+}
+
+function WaveDivider({
+  fillClass,
+  flip = false,
+  gapClass = 'mt-6'
+}: {
+  fillClass: string
+  flip?: boolean
+  gapClass?: string
+}) {
+  return (
+    <div aria-hidden className={`relative ${gapClass} -mb-px leading-none`}>
+      <svg
+        viewBox="0 0 1440 60"
+        preserveAspectRatio="none"
+        className={`block h-8 w-full md:h-10 ${fillClass} ${flip ? '-scale-x-100' : ''}`}
+      >
+        <path
+          d="M0,36 C240,66 480,4 720,26 C960,48 1200,10 1440,34 L1440,60 L0,60 Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  )
+}
+
+function SurfWave({
+  backClass,
+  frontClass,
+  flip = false,
+  heightClass = 'h-[110px] md:h-[130px]'
+}: {
+  backClass: string
+  frontClass: string
+  flip?: boolean
+  heightClass?: string
+}) {
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute bottom-0 left-1/2 w-screen -translate-x-1/2 ${heightClass} ${
+        flip ? '-scale-x-100' : ''
+      }`}
+    >
+      <svg
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+        className={`absolute inset-0 block h-full w-full ${backClass}`}
+      >
+        <path
+          d="M0,58 C240,104 480,14 720,48 C960,82 1200,24 1440,64 L1440,120 L0,120 Z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+        className={`absolute inset-0 block h-full w-full ${frontClass}`}
+      >
+        <path
+          d="M0,82 C260,118 520,46 780,74 C1040,102 1240,58 1440,90 L1440,120 L0,120 Z"
+          fill="currentColor"
+        />
+      </svg>
     </div>
   )
 }
@@ -224,21 +298,11 @@ export default function HomePage() {
         </div>
 
         {/* Wave into the stats strip */}
-        <svg
-          aria-hidden
-          className="relative block h-[46px] w-full text-gray-900 md:h-[64px]"
-          viewBox="0 0 1440 70"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,42 C240,78 480,4 720,30 C960,56 1200,12 1440,40 L1440,70 L0,70 Z"
-            fill="currentColor"
-          />
-        </svg>
+        <WaveDivider fillClass="text-gray-900" gapClass="mt-0" />
       </section>
 
       {/* Features Strip */}
-      <section className="bg-gray-900 py-6">
+      <section className="bg-gray-900 pt-6">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="flex items-center justify-center gap-2 text-gray-300">
@@ -259,10 +323,11 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+        <WaveDivider fillClass="text-white" flip gapClass="mt-4" />
       </section>
 
       {/* Tool Grid */}
-      <section className="py-14 md:py-16 bg-white">
+      <section className="pt-14 md:pt-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <SectionHost src="/mascot.webp" line={`All ${tools.length} run right here in your browser. Pick one and try it!`} />
@@ -283,10 +348,11 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
+        <WaveDivider fillClass="text-sky-50" />
       </section>
 
       {/* How Snaptoria Works */}
-      <section className="py-14 md:py-16 bg-sky-50">
+      <section className="relative overflow-hidden pt-14 md:pt-16 bg-sky-50">
         <div className="container">
           <div className="text-center mb-12">
             <SectionHost src="/mascot-shutter.webp" line="Three steps, that's it. No uploads, no waiting rooms." />
@@ -297,8 +363,10 @@ export default function HomePage() {
               No uploads, no queues, no server in the middle. Three steps, all inside your browser tab.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="text-center">
+          <div className="relative">
+            <SurfWave backClass="text-sky-300/40" frontClass="text-sky-200" />
+            <div className="relative z-10 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="rounded-2xl border border-sky-100 bg-white px-6 py-8 text-center shadow-md">
               <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
                 <MousePointerClick className="h-8 w-8 text-sky-600" />
               </div>
@@ -307,7 +375,7 @@ export default function HomePage() {
                 Choose from {tools.length} tools — compress, convert, check DPI, build a PDF and more. Every tool opens instantly, with no account and nothing to install.
               </p>
             </div>
-            <div className="text-center">
+            <div className="rounded-2xl border border-sky-100 bg-white px-6 py-8 text-center shadow-md">
               <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
                 <Cpu className="h-8 w-8 text-sky-600" />
               </div>
@@ -316,7 +384,7 @@ export default function HomePage() {
                 Modern browsers can read and process files locally, so your file is handled on your own device. It is never uploaded to a server — there is no server copy at any point.
               </p>
             </div>
-            <div className="text-center">
+            <div className="rounded-2xl border border-sky-100 bg-white px-6 py-8 text-center shadow-md">
               <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
                 <Download className="h-8 w-8 text-sky-600" />
               </div>
@@ -325,12 +393,14 @@ export default function HomePage() {
                 Save the finished file straight from your browser. Nothing is stored anywhere, so closing the tab leaves nothing behind.
               </p>
             </div>
+            </div>
           </div>
         </div>
+        <WaveDivider fillClass="text-white" flip />
       </section>
 
       {/* Why Snaptoria */}
-      <section className="py-14 md:py-16 bg-white">
+      <section className="relative overflow-hidden pt-14 md:pt-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -340,11 +410,13 @@ export default function HomePage() {
               Unlike other tools that upload your files to servers, everything here runs in your browser.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-sm bg-white">
+          <div className="relative">
+            <SurfWave backClass="text-sky-100" frontClass="text-sky-200" flip />
+            <div className="relative z-10 grid md:grid-cols-3 gap-8">
+            <Card className="rounded-2xl border border-sky-100 bg-white shadow-lg">
               <CardContent className="p-8 text-center">
-                <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                  <Lock className="h-8 w-8 text-sky-600" />
+                <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center shadow-md">
+                  <Lock className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Complete Privacy</h3>
                 <p className="text-gray-600">
@@ -352,10 +424,10 @@ export default function HomePage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="rounded-2xl border border-sky-100 bg-white shadow-lg">
               <CardContent className="p-8 text-center">
-                <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                  <Zap className="h-8 w-8 text-sky-600" />
+                <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center shadow-md">
+                  <Zap className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Blazing Fast</h3>
                 <p className="text-gray-600">
@@ -363,10 +435,10 @@ export default function HomePage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="rounded-2xl border border-sky-100 bg-white shadow-lg">
               <CardContent className="p-8 text-center">
-                <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                  <Sparkles className="h-8 w-8 text-sky-600" />
+                <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center shadow-md">
+                  <Sparkles className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{tools.length} Tools, One Price</h3>
                 <p className="text-gray-600">
@@ -374,12 +446,14 @@ export default function HomePage() {
                 </p>
               </CardContent>
             </Card>
+            </div>
           </div>
         </div>
+        <WaveDivider fillClass="text-sky-500" />
       </section>
 
       {/* Privacy */}
-      <section className="py-14 md:py-16 bg-gradient-to-br from-sky-500 via-blue-600 to-blue-800">
+      <section className="relative overflow-hidden pt-14 md:pt-16 bg-gradient-to-br from-sky-500 via-blue-600 to-blue-800">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
@@ -405,35 +479,43 @@ export default function HomePage() {
                 scanned documents, client work and business records. With Snaptoria they never leave your hands.
               </p>
             </div>
-            <div className="grid sm:grid-cols-3 gap-6 mt-12">
-              <div className="flex items-start gap-3">
-                <Shield className="h-6 w-6 text-sky-300 shrink-0 mt-1" />
-                <div>
+            <div className="relative mt-12">
+              <SurfWave
+                backClass="text-white/15"
+                frontClass="text-white/25"
+                heightClass="h-[100px] md:h-[110px]"
+              />
+              <div className="relative z-10 grid justify-items-center gap-8 sm:grid-cols-3">
+                <div className="flex h-52 w-52 flex-col items-center justify-center rounded-full bg-white/10 px-6 text-center ring-1 ring-white/40 backdrop-blur-sm">
+                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30">
+                    <Shield className="h-6 w-6 text-sky-200" />
+                  </div>
                   <h3 className="font-semibold text-white mb-1">Nothing transmitted</h3>
-                  <p className="text-sm text-sky-100">Your file never travels across the internet to reach a server.</p>
+                  <p className="text-[13px] leading-snug text-sky-100">Your file never travels across the internet to reach a server.</p>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Lock className="h-6 w-6 text-sky-300 shrink-0 mt-1" />
-                <div>
+                <div className="flex h-52 w-52 flex-col items-center justify-center rounded-full bg-white/10 px-6 text-center ring-1 ring-white/40 backdrop-blur-sm">
+                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30">
+                    <Lock className="h-6 w-6 text-sky-200" />
+                  </div>
                   <h3 className="font-semibold text-white mb-1">No server storage</h3>
-                  <p className="text-sm text-sky-100">There is no uploaded copy kept anywhere — closing the tab clears everything.</p>
+                  <p className="text-[13px] leading-snug text-sky-100">There is no uploaded copy kept anywhere — closing the tab clears everything.</p>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Zap className="h-6 w-6 text-sky-300 shrink-0 mt-1" />
-                <div>
+                <div className="flex h-52 w-52 flex-col items-center justify-center rounded-full bg-white/10 px-6 text-center ring-1 ring-white/40 backdrop-blur-sm">
+                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30">
+                    <Zap className="h-6 w-6 text-sky-200" />
+                  </div>
                   <h3 className="font-semibold text-white mb-1">Nothing to wait for</h3>
-                  <p className="text-sm text-sky-100">No upload or download queues — processing starts the moment you add a file.</p>
+                  <p className="text-[13px] leading-snug text-sky-100">No upload or download queues — processing starts the moment you add a file.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <WaveDivider fillClass="text-white" flip />
       </section>
 
       {/* Use Cases */}
-      <section className="py-14 md:py-16 bg-white">
+      <section className="relative overflow-hidden pt-14 md:pt-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -443,12 +525,14 @@ export default function HomePage() {
               Different work needs different tools. Here is where each group of Snaptoria tools earns its keep.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="relative">
+            <SurfWave backClass="text-sky-100" frontClass="text-sky-200" />
+            <div className="relative z-10 grid md:grid-cols-3 gap-8">
             {useCaseGroups.map((group) => (
-              <Card key={group.title} className="border border-gray-200 shadow-sm bg-white">
+              <Card key={group.title} className="rounded-2xl border border-sky-100 shadow-lg bg-white">
                 <CardContent className="p-8">
-                  <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
-                    <group.icon className="h-8 w-8 text-sky-600" />
+                  <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-full w-16 h-16 mb-6 flex items-center justify-center shadow-md">
+                    <group.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{group.title}</h3>
                   <p className="text-gray-600 mb-6">{group.copy}</p>
@@ -472,12 +556,14 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             ))}
+            </div>
           </div>
         </div>
+        <WaveDivider fillClass="text-gray-50" />
       </section>
 
       {/* Specialist Tools */}
-      <section className="py-14 md:py-16 bg-gray-50">
+      <section className="pt-14 md:pt-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -495,8 +581,9 @@ export default function HomePage() {
               if (!tool) return null
               return (
                 <Link key={tool.id} href={`/tools/${tool.id}`}>
-                  <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 border border-sky-100 bg-white group">
-                    <CardContent className="p-6">
+                  <Card className="h-full rounded-3xl shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl border border-sky-100 bg-white group">
+                    <CardContent className="p-7">
+                      <ToolCardVisual toolId={tool.id} />
                       <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
                         {tool.name}
                       </h3>
@@ -508,10 +595,11 @@ export default function HomePage() {
             })}
           </div>
         </div>
+        <WaveDivider fillClass="text-sky-50" flip />
       </section>
 
       {/* Comparison */}
-      <section className="py-14 md:py-16 bg-sky-50">
+      <section className="pt-14 md:pt-16 bg-sky-50">
         <div className="container">
           <div className="text-center mb-12">
             <SectionHost src="/mascot.webp" line="Same jobs, no server copies. See for yourself." />
@@ -522,31 +610,53 @@ export default function HomePage() {
               The difference is not the tool list — it is where your files go when you use them.
             </p>
           </div>
-          <div className="max-w-4xl mx-auto overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="py-4 pr-4 text-sm font-semibold text-gray-500 w-1/4"></th>
-                  <th className="py-4 px-4 text-base font-bold text-sky-600 w-[37.5%]">Snaptoria</th>
-                  <th className="py-4 pl-4 text-base font-semibold text-gray-500 w-[37.5%]">Typical upload-based tools</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonRows.map((row) => (
-                  <tr key={row.label} className="border-b border-gray-100 align-top">
-                    <th className="py-4 pr-4 text-sm font-semibold text-gray-900">{row.label}</th>
-                    <td className="py-4 px-4 text-sm text-gray-700">{row.snaptoria}</td>
-                    <td className="py-4 pl-4 text-sm text-gray-500">{row.typical}</td>
+          <div className="max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-sky-100">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px] text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-sky-100">
+                    <th className="px-6 py-4 w-1/4"></th>
+                    <th className="px-6 py-4 w-[37.5%] bg-gradient-to-r from-sky-500 to-blue-600 text-base font-bold text-white">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Star aria-hidden className="h-4 w-4 fill-current" />
+                        Snaptoria
+                      </span>
+                    </th>
+                    <th className="px-6 py-4 w-[37.5%] bg-gray-50 text-base font-semibold text-gray-500">Typical upload-based tools</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-sky-100">
+                  {comparisonRows.map((row, i) => (
+                    <tr key={row.label} className={`align-top ${i % 2 === 1 ? 'bg-sky-50' : 'bg-white'}`}>
+                      <th className="px-6 py-4 text-sm font-semibold text-gray-900">{row.label}</th>
+                      <td className={`px-6 py-4 text-sm text-gray-700 ${i % 2 === 1 ? 'bg-sky-100/60' : 'bg-sky-50/70'}`}>
+                        <span className="flex items-start gap-2">
+                          <Check aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-sky-500" />
+                          <span>{row.snaptoria}</span>
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        <span className="flex items-start gap-2">
+                          {row.typicalMark === 'x' ? (
+                            <X aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                          ) : (
+                            <Minus aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                          )}
+                          <span>{row.typical}</span>
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+        <WaveDivider fillClass="text-gray-50" />
       </section>
 
       {/* Pricing Preview */}
-      <section className="py-14 md:py-16 bg-gray-50">
+      <section className="pt-14 md:pt-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -624,10 +734,11 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
+        <WaveDivider fillClass="text-white" flip />
       </section>
 
       {/* Testimonials */}
-      <section className="py-14 md:py-16 bg-white">
+      <section className="pt-14 md:pt-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -703,10 +814,11 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
+        <WaveDivider fillClass="text-gray-50" />
       </section>
 
       {/* FAQ */}
-      <section className="py-14 md:py-16 bg-gray-50">
+      <section className="pt-14 md:pt-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <SectionHost src="/mascot-shutter.webp" line="Stuck on something? Answers below — or ask the assistant, bottom-right." />
@@ -717,26 +829,35 @@ export default function HomePage() {
               Straight answers about DPI, damaged files, privacy and how Snaptoria works.
             </p>
           </div>
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto space-y-5">
             {homeFaqs.map((faq) => (
-              <div key={faq.question} className="border-b border-gray-200 py-6 first:pt-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-600 mb-3">{faq.answer}</p>
-                <Link
-                  href={faq.href}
-                  className="inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
+              <div key={faq.question} className="flex gap-4 rounded-2xl border border-sky-100 bg-white p-6 shadow-md">
+                <span
+                  aria-hidden
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-500 text-base font-bold text-white shadow-sm"
                 >
-                  {faq.linkLabel}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                  ?
+                </span>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+                  <p className="text-gray-600 mb-3">{faq.answer}</p>
+                  <Link
+                    href={faq.href}
+                    className="inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
+                  >
+                    {faq.linkLabel}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
         </div>
+        <WaveDivider fillClass="text-sky-500" flip />
       </section>
 
       {/* CTA */}
-      <section className="py-14 md:py-16 bg-sky-500">
+      <section className="pt-14 md:pt-16 bg-sky-500">
         <div className="container text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Get Started?
@@ -757,6 +878,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
+        <WaveDivider fillClass="text-gray-900" />
       </section>
     </div>
     </>
