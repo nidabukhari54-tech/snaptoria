@@ -28,7 +28,7 @@ export function Footer() {
               src="/mascots-family.webp"
               alt="The Snaptoria mascot family"
               loading="lazy"
-              className="h-20 w-auto rounded-2xl object-cover shadow-lg ring-2 ring-white/20 mb-4"
+              className="h-20 w-auto mb-4 drop-shadow-lg"
             />
             <div className="flex items-center gap-3 mb-4">
               <Link href="/" className="flex items-center gap-2">
