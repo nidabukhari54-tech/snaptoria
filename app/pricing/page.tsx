@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Check, X, Sparkles } from 'lucide-react'
 import { tools } from '@/lib/tools'
+import { PricingProductSchema, PageBreadcrumbSchema } from '@/components/schema'
 
 const features = [
   { name: 'Image Compressor', free: true, pro: true },
@@ -24,6 +25,13 @@ const features = [
 export default function PricingPage() {
   return (
     <div className="container py-12 md:py-20">
+      <PricingProductSchema />
+      <PageBreadcrumbSchema
+        trail={[
+          { name: 'Home', path: '/' },
+          { name: 'Pricing', path: '/pricing' },
+        ]}
+      />
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Simple, Transparent Pricing

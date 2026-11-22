@@ -2,12 +2,20 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { tools } from '@/lib/tools'
 import { ToolCardVisual } from '@/components/tool-card-visual'
+import { ToolListSchema, PageBreadcrumbSchema } from '@/components/schema'
 
 export default function ToolsPage() {
   const categories = Array.from(new Set(tools.map((t) => t.category)))
 
   return (
     <div className="container py-12">
+      <ToolListSchema />
+      <PageBreadcrumbSchema
+        trail={[
+          { name: 'Home', path: '/' },
+          { name: 'Tools', path: '/tools' },
+        ]}
+      />
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">All Tools</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">

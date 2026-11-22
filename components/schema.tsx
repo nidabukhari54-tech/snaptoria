@@ -158,6 +158,76 @@ export function ToolListSchema() {
   return <JsonLd data={schema} />
 }
 
+interface PageBreadcrumbSchemaProps {
+  trail: { name: string; path: string }[]
+}
+
+// BreadcrumbList for plain pages (e.g. Home -> Tools, Home -> Pricing),
+// built from an explicit trail of { name, path } pairs.
+export function PageBreadcrumbSchema({ trail }: PageBreadcrumbSchemaProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
+  }
+
+  return <JsonLd data={schema} />
+}
+
+// Product schema for the /pricing page. Every fact below is stated on the
+// pricing page itself: Free is $0 with 10 actions per day across all tools
+// and no signup required; Pro is $9/month with unlimited actions, usage
+// history and priority support. No ratings or review data exist, so none
+// are included.
+export function PricingProductSchema() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Snaptoria Pro',
+    description:
+      'Snaptoria Pro is the paid plan for Snaptoria\'s browser-based image and document tools: unlimited actions, usage history and priority support. All processing happens privately in your browser; files are never uploaded.',
+    url: `${SITE_URL}/pricing`,
+    brand: {
+      '@type': 'Brand',
+      name: SITE_NAME,
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free',
+        price: '0',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        description:
+          'Free plan: $0 - 10 actions per day across all tools, no signup required.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Pro',
+        price: '9',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        description:
+          'Pro plan: $9/month - unlimited actions, usage history and priority support.',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '9',
+          priceCurrency: 'USD',
+          billingDuration: 'P1M',
+          unitCode: 'MON',
+        },
+      },
+    ],
+  }
+
+  return <JsonLd data={schema} />
+}
+
 interface FaqSchemaProps {
   faqs: { question: string; answer: string }[]
 }
