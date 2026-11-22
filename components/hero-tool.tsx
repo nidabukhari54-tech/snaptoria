@@ -5,7 +5,6 @@ import Link from 'next/link'
 import NextImage from 'next/image'
 import { tools } from '@/lib/tools'
 import {
-  UploadCloud,
   X,
   Download,
   Loader2,
@@ -301,6 +300,7 @@ export function HeroTool() {
   const [resultKey, setResultKey] = useState(0)
   const [dragOver, setDragOver] = useState(false)
   const [chompKey, setChompKey] = useState(0)
+  const [chomping, setChomping] = useState(false)
   const [ttsSupported, setTtsSupported] = useState(false)
   const [speaking, setSpeaking] = useState(false)
 
@@ -338,7 +338,6 @@ export function HeroTool() {
     setResult(null)
     setBusy(null)
     setRotation(0)
-    setChompKey((k) => k + 1) // mascot takes a happy chomp as the file lands
     setFile(f)
     if (isPdf) {
       setKind('pdf')
@@ -355,6 +354,29 @@ export function HeroTool() {
       img.src = url
       setToolId((prev) => (IMAGE_RUN_HERE.includes(prev) || FULL_TOOL_IDS.includes(prev) ? prev : 'image-compressor'))
     }
+  }
+
+  // Intake with a beat: the drop-zone mascot takes a happy chomp (~450ms)
+  // before the panel flips to the file state. Invalid files skip the show
+  // and go straight to loadFile's error message; reduced-motion users skip
+  // the delay entirely.
+  const intakeFile = (f: File) => {
+    const isPdf = f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf')
+    const isImage = f.type.startsWith('image/')
+    if (!isPdf && !isImage) {
+      loadFile(f)
+      return
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      loadFile(f)
+      return
+    }
+    setChomping(true)
+    setChompKey((k) => k + 1)
+    window.setTimeout(() => {
+      loadFile(f)
+      setChomping(false)
+    }, 450)
   }
 
   const clearFile = () => {
@@ -375,7 +397,7 @@ export function HeroTool() {
     try {
       const res = await fetch(s.src)
       const blob = await res.blob()
-      loadFile(new File([blob], s.name, { type: 'image/jpeg' }))
+      intakeFile(new File([blob], s.name, { type: 'image/jpeg' }))
     } catch {
       setError('Could not load that sample. Check your connection and try again.')
     } finally {
@@ -904,29 +926,6 @@ export function HeroTool() {
 
   return (
     <div className="relative z-10 mx-auto mt-6 max-w-3xl text-left">
-      {/* Big-mouth mascot (public/mascot-mouth.webp — the medallion crop is
-          zoomed onto the face so the wide-open mouth reads clearly; the
-          medallion sits over the drop zone's top edge, "receiving" the file) */}
-      <div className="pointer-events-none absolute -top-12 right-3 z-20 flex items-end md:-top-[76px] md:right-6">
-        <div className="relative mb-14 mr-1 hidden max-w-[200px] rounded-2xl bg-white px-3.5 py-2.5 text-[13px] font-medium leading-snug text-gray-700 shadow-xl ring-1 ring-black/5 sm:block">
-          {bubbleText}
-          <span aria-hidden className="absolute -right-1 bottom-5 h-3 w-3 rotate-45 bg-white" />
-        </div>
-        <div className={dragOver ? 'hero-wiggle' : 'hero-float'}>
-          <div key={chompKey} className={chompKey > 0 ? 'hero-chomp' : undefined}>
-            <div className="h-[96px] w-[96px] overflow-hidden rounded-full shadow-2xl ring-4 ring-white md:h-[160px] md:w-[160px]">
-              <NextImage
-                src="/mascot-mouth.webp"
-                alt="Snaptoria mascot with its mouth wide open, ready for your file"
-                width={512}
-                height={512}
-                priority
-                className="h-full w-full origin-[50%_42%] scale-[1.8] object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
       <div
         className="rounded-3xl bg-white p-5 shadow-2xl ring-1 ring-black/5 sm:p-7"
         onDragOver={(e) => {
@@ -938,7 +937,7 @@ export function HeroTool() {
           e.preventDefault()
           setDragOver(false)
           const f = e.dataTransfer.files?.[0]
-          if (f) loadFile(f)
+          if (f) intakeFile(f)
         }}
       >
         {/* Drop zone / file state */}
@@ -946,16 +945,38 @@ export function HeroTool() {
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className={`flex w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-9 text-center transition-all ${
+            className={`flex w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-5 text-center transition-all sm:py-6 ${
               dragOver
-                ? 'border-sky-500 bg-sky-100/80 scale-[1.01]'
-                : 'border-sky-300 bg-sky-50/70 hover:border-sky-400 hover:bg-sky-50'
+                ? 'border-sky-500 bg-white scale-[1.01] shadow-[0_0_0_4px_rgba(56,189,248,0.25)]'
+                : 'border-sky-300 bg-white hover:border-sky-400'
             }`}
           >
-            <span className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-sky-500 text-white shadow-lg shadow-sky-200">
-              <UploadCloud className="h-7 w-7" />
+            {/* The big-mouth mascot stands COMPLETE in the middle of the zone —
+                visitors drop files "into his mouth". He is shown full-body,
+                uncropped; the zone's white background matches the asset's own
+                white background, so no rectangle edges show and he appears to
+                stand directly in the zone. His speech bubble rides to his
+                right on sm+, stacked above him on small screens. */}
+            <span className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
+              <span className={`order-2 sm:order-1 ${dragOver || chomping ? 'hero-wiggle' : 'hero-float'}`}>
+                <span key={chompKey} className={`block ${chompKey > 0 ? 'hero-chomp' : ''}`}>
+                  <NextImage
+                    src="/mascot-mouth.webp"
+                    alt="Snaptoria mascot with its mouth wide open, ready for your file"
+                    width={512}
+                    height={512}
+                    priority
+                    className="h-[160px] w-auto sm:h-[220px]"
+                  />
+                </span>
+              </span>
+              <span className="relative order-1 max-w-[220px] rounded-2xl bg-sky-50 px-3.5 py-2.5 text-[13px] font-medium leading-snug text-gray-700 shadow-lg ring-1 ring-black/5 sm:order-2">
+                {bubbleText}
+                <span aria-hidden className="absolute -bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-sky-50 sm:hidden" />
+                <span aria-hidden className="absolute -left-1 top-1/2 hidden h-3 w-3 -translate-y-1/2 rotate-45 bg-sky-50 sm:block" />
+              </span>
             </span>
-            <span className="text-lg font-semibold text-gray-900">Drop your image or PDF here</span>
+            <span className="mt-4 text-lg font-semibold text-gray-900">Drop your image or PDF here</span>
             <span className="mt-1 text-sm text-gray-500">
               or <span className="font-medium text-sky-600 underline underline-offset-2">click to browse</span> — JPG,
               PNG, WebP, GIF or PDF
@@ -1000,7 +1021,7 @@ export function HeroTool() {
           className="hidden"
           onChange={(e) => {
             const f = e.target.files?.[0]
-            if (f) loadFile(f)
+            if (f) intakeFile(f)
             e.target.value = ''
           }}
         />
