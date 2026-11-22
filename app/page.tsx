@@ -19,13 +19,7 @@ import {
 } from 'lucide-react'
 import { OrganizationSchema, WebsiteSchema, ToolListSchema, FaqSchema } from '@/components/schema'
 import { ToolGridTabs } from '@/components/tool-grid-tabs'
-
-const heroChips = [
-  { label: 'Compress an image', href: '/tools/image-compressor' },
-  { label: 'Crop an image', href: '/tools/image-cropper' },
-  { label: 'Check image DPI', href: '/tools/dpi-checker' },
-  { label: 'Convert format', href: '/tools/image-format-converter' }
-]
+import { HeroTool } from '@/components/hero-tool'
 
 const homeFaqs = [
   {
@@ -140,52 +134,78 @@ export default function HomePage() {
       <FaqSchema faqs={homeFaqs} />
       <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-sky-50 via-white to-blue-50 py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNlMmU4ZjAiIGZpbGwtb3BhY2l0eT0iMC40Ij48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxLjUiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-60" />
-        <div className="container relative">
+      <section className="relative overflow-hidden bg-sky-600">
+        {/* Rich backdrop: layered gradient, soft glows */}
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-500 via-sky-600 to-blue-800" />
+        <div className="absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-sky-300/30 blur-3xl" />
+        <div className="absolute -bottom-48 right-0 h-[28rem] w-[28rem] rounded-full bg-blue-400/25 blur-3xl" />
+        <div className="absolute top-1/3 -left-24 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
+        {/* Floating sample accents (wide screens only) */}
+        <div aria-hidden className="pointer-events-none absolute left-[3.5%] top-44 hidden w-44 -rotate-6 2xl:block">
+          <div className="hero-float">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/samples/sample-flower-field.jpg"
+              alt=""
+              className="rounded-2xl shadow-2xl ring-1 ring-white/40"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div aria-hidden className="pointer-events-none absolute right-[3.5%] top-72 hidden w-52 rotate-3 2xl:block">
+          <div className="hero-float-delay">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/samples/sample-mountain-lake.jpg"
+              alt=""
+              className="rounded-2xl shadow-2xl ring-1 ring-white/40"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div className="container relative pt-16 pb-14 md:pt-24 md:pb-16">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-sky-100 text-sky-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 text-white ring-1 ring-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Sparkles className="h-4 w-4" />
               Privacy-first image tools
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {tools.length} Tools, One Subscription.
               <br />
-              <span className="text-sky-500">Files Never Leave Your Browser.</span>
+              <span className="text-sky-200">Files Never Leave Your Browser.</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-sky-100 max-w-2xl mx-auto">
               Compress, resize, convert, and check images 100% client-side.
               No uploads to servers and no signup needed to use the tools. Just powerful tools that work right in your browser.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/tools">
-                <Button size="lg" className="bg-sky-500 hover:bg-sky-600 text-white px-8">
-                  Explore All Tools
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="/pricing">
-                <Button size="lg" variant="outline" className="px-8">
-                  View Pricing
-                </Button>
-              </Link>
-            </div>
-            <div className="mt-10">
-              <p className="text-sm text-gray-500 mb-3">Jump straight to a popular tool:</p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {heroChips.map((chip) => (
-                  <Link
-                    key={chip.href}
-                    href={chip.href}
-                    className="bg-white border border-sky-200 text-sky-700 hover:bg-sky-50 hover:border-sky-300 rounded-full px-4 py-2 text-sm font-medium shadow-sm transition-colors"
-                  >
-                    {chip.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
+
+          <HeroTool />
+
+          <p className="relative z-10 mt-7 text-center text-sm text-sky-100">
+            <Link href="/tools" className="font-medium text-white underline decoration-sky-300 underline-offset-4 hover:decoration-white">
+              Explore all {tools.length} tools
+            </Link>
+            <span className="mx-2 text-sky-300">·</span>
+            <Link href="/pricing" className="font-medium text-white underline decoration-sky-300 underline-offset-4 hover:decoration-white">
+              See pricing
+            </Link>
+          </p>
         </div>
+
+        {/* Wave into the stats strip */}
+        <svg
+          aria-hidden
+          className="relative block h-[46px] w-full text-gray-900 md:h-[64px]"
+          viewBox="0 0 1440 70"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,42 C240,78 480,4 720,30 C960,56 1200,12 1440,40 L1440,70 L0,70 Z"
+            fill="currentColor"
+          />
+        </svg>
       </section>
 
       {/* Features Strip */}
