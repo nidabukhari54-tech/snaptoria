@@ -818,7 +818,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="pt-14 md:pt-16 bg-gray-50">
+      <section id="faq" className="pt-14 md:pt-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <SectionHost src="/mascot-shutter.webp" line="Stuck on something? Answers below — or ask the assistant, bottom-right." />

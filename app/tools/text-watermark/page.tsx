@@ -136,7 +136,7 @@ export default function TextWatermarkPage() {
             <div className="mt-6 space-y-6">
               <div className="flex items-center gap-2">
                 <Type className="h-5 w-5 text-gray-600" />
-                <h3 className="font-medium text-gray-900">Watermark Settings</h3>
+                <div className="font-medium text-gray-900">Watermark Settings</div>
               </div>
 
               <div>

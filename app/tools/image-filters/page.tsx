@@ -115,10 +115,10 @@ export default function ImageFiltersPage() {
           {preview && (
             <div className="mt-6 space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="font-medium text-gray-900 flex items-center gap-2">
+                <div className="font-medium text-gray-900 flex items-center gap-2">
                   <Sliders className="h-4 w-4" />
                   Filters
-                </h3>
+                </div>
                 <Button variant="ghost" size="sm" onClick={resetFilters}>
                   <RotateCcw className="h-4 w-4 mr-1" />
                   Reset

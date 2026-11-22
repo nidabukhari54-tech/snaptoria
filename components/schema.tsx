@@ -31,6 +31,10 @@ export function ToolSchema({ tool }: ToolSchemaProps) {
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Any (browser-based)',
     browserRequirements: 'Runs entirely in your web browser',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['#tool-answer'],
+    },
     offers: [
       {
         '@type': 'Offer',
@@ -164,6 +168,10 @@ export function FaqSchema({ faqs }: FaqSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['#faq'],
+    },
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,

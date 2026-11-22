@@ -17,6 +17,7 @@ interface ToolContent {
   intro: string
   howTo: { step: number; text: string }[]
   angle: string
+  howItWorks: string
   privacy: string
   faqs: { question: string; answer: string }[]
 }
@@ -31,6 +32,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Click "Compress Image" and download your optimized file instantly.' }
     ],
     angle: 'Our tool supports both lossy and lossless compression approaches. Lossy compression achieves smaller file sizes by selectively removing less visible image data, ideal for web use. Lossless compression preserves every pixel exactly, better for archival or professional photography. For most web and social media applications, a quality setting between 70-85% provides the best balance of size reduction and visual fidelity.',
+    howItWorks: 'When you add a photo, the file goes to a compression engine that runs in a web worker, a background thread in your browser, so the page stays responsive while it works. The number on the quality slider becomes the engine\'s target quality for the re-encode. When it finishes, you see the new file size next to the original and the percentage saved, before you download anything. If the result is still too big, lower the slider and compress again. Every run starts from your original file rather than the last compressed copy, so experimenting with different quality levels does not keep degrading the picture.',
     privacy: 'All image processing happens directly in your browser—your files are never uploaded to any external server, ensuring complete privacy and security.',
     faqs: [
       { question: 'How do I compress image to 100kb or less?', answer: 'Upload your image and gradually lower the quality slider until the compressed file size reaches your target. For images that need to meet strict size limits like 100kb, you may need to accept slightly lower quality. Starting with a higher resolution original gives you more flexibility in the final result.' },
@@ -48,6 +50,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Preview the result and download your resized image instantly.' }
     ],
     angle: 'Common target sizes for digital use include 1080x1080px for Instagram posts, 1200x628px for Facebook shares, 1920x1080px for YouTube thumbnails, and 800x600px for standard web content. For print, consider that 300 DPI is standard for high-quality prints—a 4x6 inch photo needs 1200x1800 pixels. Always resize to larger dimensions rather than upscaling small images for best quality.',
+    howItWorks: 'The resizer draws your image onto a canvas at exactly the pixel dimensions you ask for. In pixels mode you type a width and height directly. With the aspect-ratio lock switched on, typing one side works out the other from your photo\'s original proportions, so nothing gets stretched. Percentage mode scales both sides by the same factor, which is handy when you know you want the image half or twice as big but do not care about exact pixels. A live preview shows the result at its new size, and the download is exported from the canvas as a PNG file.',
     privacy: 'Image resizing happens entirely in your browser—no files are uploaded to any server, keeping your photos private and secure.',
     faqs: [
       { question: 'How do I resize image to pixels for exact dimensions?', answer: 'Enter your desired width and height in pixels directly into the dimension fields. The tool shows a real-time preview so you can verify the result before downloading. You can also lock the aspect ratio to prevent distortion.' },
@@ -65,6 +68,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Click "Crop" and download your cropped image in seconds.' }
     ],
     angle: 'Speed is the priority here—no account creation, no email verification, no waiting. Upload, crop, download. The entire process takes seconds because all processing happens locally in your browser. For cropping to specific aspect ratios like 1:1, 16:9, or 4:5, try our dedicated Aspect Ratio Cropper tool.',
+    howItWorks: 'Your photo opens in a crop frame that you drag and zoom until the composition looks right. The frame tracks its position and size in the pixels of your original image, not in screen pixels, so the area you choose maps exactly onto the full-resolution photo. When you confirm, that region is drawn onto a canvas at its true size and exported as a JPEG. Nothing outside the frame is kept, and the parts of the photo you cropped away are not hidden in the downloaded file. What you framed is precisely what you get.',
     privacy: 'Cropping happens directly in your browser—your images are never uploaded to any external server.',
     faqs: [
       { question: 'How do I crop photo online free without signing up?', answer: 'Simply visit this page, upload your image, and start cropping. No registration, email, or payment is ever required. The tool works immediately with zero barriers.' },
@@ -82,6 +86,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Click "Convert" and download your new file immediately.' }
     ],
     angle: 'HEIC to JPG conversion is one of the most requested features since iPhones capture photos in HEIC format by default. HEIC files offer excellent compression but may not open on older devices or some Windows computers. Converting to JPG ensures universal compatibility. Additionally, WebP offers superior compression for web use—up to 34% smaller than equivalent JPEGs—making it ideal for websites prioritizing fast load times.',
+    howItWorks: 'The converter decodes your image and redraws its pixels onto a canvas, then re-encodes those pixels in the format you picked: PNG, JPEG, or WebP. That redraw is also why the conversion is clean. The new file is built from picture data only, so metadata attached to the original, such as camera details or GPS coordinates, is not carried across. If your browser can display the file you added, the converter can re-encode it, which is how iPhone HEIC photos become ordinary JPEGs on systems that support them. Pick a target format, convert, and download the result.',
     privacy: 'Format conversion happens entirely in your browser—your images never leave your device.',
     faqs: [
       { question: 'How do I convert HEIC to JPG online?', answer: 'HEIC (High Efficiency Image Container) is the default format for iPhone photos. Upload your HEIC file, select JPG as the target format, and convert instantly. The resulting JPG will work on any device or platform without special software.' },
@@ -99,6 +104,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Click "Create PDF" and download your combined document.' }
     ],
     angle: 'Combining multiple images into a single PDF is perfect for creating photo collections, document packages, or presentation materials. Each image becomes a separate page in the PDF, maintaining the original quality and orientation. Portrait photos appear as portrait pages, landscape as landscape—no awkward stretching or cropping.',
+    howItWorks: 'Each image you add becomes its own page in an A4 portrait PDF. The tool measures every image and scales it to fit inside the page while keeping its original proportions, so a wide photo is never stretched tall or squashed flat. The scaled image is centered on the page and written into the document as a JPEG. Pages follow the order of your list, and you can drag images up or down to change that order before generating. When every page is placed, the finished PDF is assembled in your browser and downloaded as one file.',
     privacy: 'PDF generation happens entirely in your browser—your images are never transmitted to any external server.',
     faqs: [
       { question: 'How do I convert JPG to PDF online?', answer: 'Upload your JPG image, click "Create PDF," and download the result. The process takes seconds. For multiple JPGs, upload them all and they will each become a separate page in your PDF.' },
@@ -116,6 +122,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Check the summary: the lowest-DPI image is highlighted, because that is the one that decides your print quality.' }
     ],
     angle: 'Print shops ask for 300 DPI because that is roughly the finest detail the human eye can resolve at normal reading distance — below it, photos start to look soft or pixelated in print. The catch with PDFs is that one document can mix images of wildly different quality: a logo exported at high resolution can sit right next to a website screenshot that works out to under 100 DPI at its printed size. A PDF also stores each image at its original pixel size, so enlarging an image on the page lowers its effective DPI even though the image file itself never changed. That is why checking a PDF means checking it image by image, at the exact size each one appears — which is exactly what this tool does, page by page.',
+    howItWorks: 'The checker opens your PDF with a PDF renderer and walks through the drawing instructions of every page, one by one. As it walks, it tracks the transformation matrix, the maths that decides where each element lands on the printed page and at what size, through every save, restore, and transform step, including images nested inside form XObjects. When an image is painted, the tool divides its pixel dimensions by the physical size it will print at. That gives the effective DPI, and it keeps the lower of the horizontal and vertical values. Three hundred DPI or more is print-ready. From 150 to 299 suits large prints and drafts. Below that, the image is flagged as screen quality only. The headline verdict comes from the weakest image in the file, because that is the one a printer will notice.',
     privacy: 'PDF analysis happens entirely in your browser — your files are never uploaded to any server, so even confidential documents stay on your device.',
     faqs: [
       { question: 'How to check DPI of a PDF?', answer: 'Upload the PDF above and this checker inspects every image embedded in it. For each image it shows the pixel dimensions, the size the image is placed at on the page, and the effective DPI that results. The summary at the top highlights the lowest-DPI image, because that is the number that decides whether the whole document prints sharply.' },
@@ -136,6 +143,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Use the information to determine if your image meets print requirements.' }
     ],
     angle: 'DPI (dots per inch) measures print resolution — how many ink dots appear in each inch of printed output. Print services typically require 300 DPI for photographs and marketing materials, while newspapers may accept 150-200 DPI. The quickest way to know your print quality is simple maths: divide the pixel width by the print width in inches. A 3000 x 2400 pixel image printed at 10 x 8 inches is exactly 300 DPI. On Windows you can also right-click a photo, open Properties and check the Details tab for horizontal and vertical resolution, and on a Mac you can open the image in Preview and use Tools, then Show Inspector. An online DPI checker like this one is faster and more complete, because it also shows the largest print size your image can produce at 300 DPI, which is the number print shops actually care about.',
+    howItWorks: 'This checker looks at two different things. First, it reads the resolution tags embedded in the file itself, the X and Y resolution values and their unit, which most cameras and editing apps write into the metadata. Those tags are where the DPI estimate comes from. Second, it decodes the image to measure its true pixel width and height, and reports the aspect ratio, color space, and bit depth when the file carries them. The two views matter because they often disagree. Plenty of images have no embedded DPI at all, and in that case the honest numbers are the pixel dimensions and the size they make at 300 DPI.',
     privacy: 'Image analysis happens entirely in your browser—your files are never uploaded to any server.',
     faqs: [
       { question: 'How to check the DPI of an image?', answer: 'Upload your image above and this DPI checker instantly displays the embedded DPI metadata, the exact pixel dimensions, and the maximum print size at 300 DPI. There is nothing to install and the file never leaves your browser.' },
@@ -157,6 +165,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Click "Download Cleaned Image (No EXIF)" to save a re-encoded copy with all metadata removed.' }
     ],
     angle: 'Viewing and removing metadata are two sides of the same job. Photographers use an EXIF viewer to check camera settings, verify when and where a shot was taken, or confirm a file still carries its copyright details. Privacy is the other side: when you share a photo without removing its metadata, anyone who downloads it can extract the GPS coordinates and learn where you live, work, or where the photo was taken. Some social platforms strip metadata on upload and some do not — and the ones that do may still keep a copy internally. This tool handles both jobs in your browser: it displays every metadata field the file contains, flags GPS location data, and then re-encodes the image through a canvas so the downloaded copy carries no EXIF data at all. The picture itself is preserved; only the hidden data is removed.',
+    howItWorks: 'The viewer parses the metadata segments inside your photo file and lists what it finds: camera make and model, lens and exposure settings, the date and time, and GPS coordinates when they were recorded. Location fields are treated as sensitive here. If GPS data is present, the page warns you before you share the photo anywhere. The cleaned download works differently from the viewer. Your photo\'s pixels are redrawn onto a canvas and saved as a brand-new file. A fresh file built from pixels alone carries no metadata with it, so the EXIF block, the GPS position, and the camera fields are all left behind.',
     privacy: 'All metadata viewing and removal happens in your browser—your original images never leave your device.',
     faqs: [
       { question: 'What is an EXIF viewer?', answer: 'An EXIF viewer reads the metadata embedded inside a photo file and displays it in readable form: camera make and model, lens, shutter speed, aperture, ISO, date and time taken, image dimensions, and GPS coordinates when the camera recorded them. Upload a photo above and this EXIF viewer shows every field it finds, instantly and without installing software.' },
@@ -178,6 +187,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Read the verdict: maximum sharp print size at 300 DPI and suitability for web and social use.' }
     ],
     angle: 'Image resolution simply means how many pixels an image contains, written as width x height — for example 4000 x 3000 pixels, which is 12 megapixels. That pixel count, not the DPI number stored in the file, decides what you can do with the image. The maths is simple: divide the pixel width by the print width in inches to get the effective DPI. A 3000-pixel-wide photo printed 10 inches wide comes out at exactly 300 DPI, the standard for sharp print. The same file is far more than enough for screens, where a full-width website hero image rarely needs more than 1920 pixels across. This checker does all of that maths for you and translates the raw numbers into a clear verdict, so you know before you upload, send, or print whether the image is up to the job.',
+    howItWorks: 'The checker decodes your image and measures its pixel width and height, then does the arithmetic that decides what those pixels are worth. Megapixels are the width times the height divided by a million. The aspect ratio is reduced to its simplest form, so 6000 by 4000 becomes 3:2. Print sizes come from dividing the pixels by 300 for a sharp print and by 150 for a larger, softer one. It also reads any DPI value embedded in the file. The verdict bands are plain: six megapixels or more counts as high resolution for most print and screen work, two to six is moderate, and under two is low. The long side gets its own guidance, with 1920 pixels marking comfortable full-screen use.',
     privacy: 'Resolution analysis happens entirely in your browser—your files are never uploaded to any server.',
     faqs: [
       { question: 'How do I check the resolution of an image?', answer: 'Upload the image above and this image resolution checker instantly shows its resolution in pixels (width x height), its megapixel count, aspect ratio, file size, and any DPI metadata embedded in the file. There is nothing to install and the image never leaves your browser.' },
@@ -198,6 +208,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Click any color swatch to copy its hex code to your clipboard.' }
     ],
     angle: 'Designers use extracted color palettes to create cohesive brand identities, match UI colors to photography, and ensure visual consistency across projects. The dominant color picker identifies the most visually significant colors—the ones the eye notices most—not just random pixels. Export options include hex codes for CSS/web, RGB values for design software, and visual swatches for presentations.',
+    howItWorks: 'Your photo is drawn onto a canvas at full size and every pixel is read. Counting millions of exact colors would produce noise, so each red, green, and blue channel is rounded to the nearest step of 32. That groups near-identical shades into one bucket, the way your eye already groups them. The tool counts how many pixels land in each bucket, sorts the buckets by count, and shows the eight biggest as swatches. Each swatch comes with its hex code and the percentage of the whole image that color covers, and one click copies the hex value for use in your design tool or stylesheet.',
     privacy: 'Color analysis happens entirely in your browser—your images are never uploaded to any external server.',
     faqs: [
       { question: 'How do I get hex code from image?', answer: 'Upload your image and the tool extracts the dominant colors. Click any swatch to instantly copy its hex code to your clipboard. Paste directly into your CSS, design software, or anywhere you need the color value.' },
@@ -215,6 +226,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'View the result: either "Valid Image" or details about the corruption detected.' }
     ],
     angle: 'Common causes of image corruption include incomplete downloads, interrupted file transfers, failing SD cards and storage errors, messaging apps that recompress files badly, and software crashes during saving. A corrupt image might display only partially, show grey bands or garbled colours, produce an “image check failed” style error on upload forms, or fail to open entirely. JPG files usually break when their header or scan data is damaged, while PNG files fail a strict checksum test when even a small part of the data changes. This corrupt image checker fully decodes your file the same way a browser or upload form does, so a pass here means the file is structurally sound, and a failure tells you the file itself — not the website or app — is the problem. Checking before you send files to print, share them with clients, or submit them to an application portal catches embarrassing failures early.',
+    howItWorks: 'The detector puts your file through three tests, in the same order your browser would meet the problems. First, the file is read into memory; a file that cannot even be read fails here. Second, the browser\'s own image decoder tries to load it. Truncated files, wrong extensions, and broken headers usually fail at this stage. Third, the decoded image is drawn onto a canvas and the tool reads a pixel back. That last test catches files whose headers look fine but whose picture data is damaged underneath. Pass all three and the file is reported valid, with its dimensions. Fail any stage and you get the stage-specific reason instead of a guess.',
     privacy: 'Image validation happens entirely in your browser—files never leave your device.',
     faqs: [
       { question: 'What is a corrupt image checker and how does it work?', answer: 'A corrupt image checker tests whether an image file is structurally valid by attempting to load and fully decode it. If the file header is damaged or the image data cannot be decoded, the checker flags it as corrupted and shows what went wrong. This tool runs the test instantly in your browser.' },
@@ -236,6 +248,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Preview and download your rotated or flipped image.' }
     ],
     angle: 'Sometimes photos import sideways from cameras or phones, or a portrait orientation was intended to be landscape. Quick rotation fixes these issues instantly. Mirror flips are useful for creating symmetrical designs, reversing text for iron-on transfers, or correcting selfies that appear reversed from front-facing cameras.',
+    howItWorks: 'Rotation and flipping happen on a canvas sized to fit the turned image, so a sideways photo gets a wider canvas rather than cropped corners. The drawing context is rotated in exact 90-degree steps, and the flip switches mirror the picture by drawing it with a negative scale, horizontally, vertically, or both. Your rotation and flip choices combine into a single redraw of the original pixels, and the result is exported as a new file. Because the export starts from the original each time you change a setting, turning an image back and forth does not wear it down.',
     privacy: 'Image rotation happens entirely in your browser—files never leave your device.',
     faqs: [
       { question: 'How do I flip image horizontally online?', answer: 'Upload your image and click the "Flip Horizontal" button. The image is mirrored left-to-right instantly. This creates a mirror image perfect for symmetrical designs or reversing text.' },
@@ -253,6 +266,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Copy the base64 string or download the decoded image file.' }
     ],
     angle: 'Developers embed base64 images directly into HTML using data URIs in img src attributes, into CSS for background images, into JSON APIs for image payloads, and into email templates where external images may be blocked. This eliminates HTTP requests for small images and works in environments where file hosting is unavailable. Security note: base64 increases file size by approximately 33%, so consider this trade-off for large images.',
+    howItWorks: 'Encoding reads your image file and produces its data URL form: the file\'s contents written out as one long base64 text string, with the image type declared at the front. That string is what you paste into an HTML img tag, a CSS background, or a JSON payload when a separate image file is not an option. Decoding runs the trip in reverse. Paste a base64 string or a full data URL, and the tool rebuilds the image from the text, shows you a preview so you can confirm it decoded correctly, and offers the result as a downloadable image file.',
     privacy: 'Base64 encoding and decoding happens entirely in your browser—your images and data strings never leave your device.',
     faqs: [
       { question: 'How do I convert base64 to image file?', answer: 'Paste your base64 string into the decode field. The tool validates the string and renders the image. Click download to save the decoded image as a file. Works with both pure base64 and data URI format.' },
@@ -270,6 +284,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download the ZIP containing favicon.ico and all PNG sizes.' }
     ],
     angle: 'A complete favicon set ensures your site icon displays correctly across all browsers, devices, and operating systems: browser tabs (16x16), bookmarks, Windows pinned sites (32x32), iOS home screen shortcuts (180x180), Android Chrome (192x192, 512x512), and more. The legacy favicon.ico format is still needed for older browsers and Windows. All sizes are included in one download for easy implementation.',
+    howItWorks: 'For every size a browser or phone might ask for, the generator draws your image onto a square canvas of exactly that size: 16, 32, 180, 192, and 512 pixels. Your artwork is scaled to fit inside the square and centered, with high-quality smoothing so the small sizes stay as crisp as the source allows. Each size is exported as a PNG. The tool then writes the two companion files a site needs, a web manifest pointing at the Android icons and a browserconfig for Windows tiles, and packs the whole set into a single ZIP for download.',
     privacy: 'Favicon generation happens entirely in your browser—your images never leave your device.',
     faqs: [
       { question: 'How do I generate favicon from image?', answer: 'Upload a square logo or icon image. The tool automatically resizes it to all standard favicon dimensions: 16x16, 32x32, 48x48, 180x180, 192x192, and 512x512 pixels. Download everything in a single ZIP file.' },
@@ -287,6 +302,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download the ZIP containing all grid pieces with correct naming.' }
     ],
     angle: 'Instagram grid posts—where a single large image is split across multiple carousel photos—are a creative way to make your profile stand out. Upload your image, choose 3x3 for a nine-image grid, and download the numbered pieces. Upload them in reverse order to Instagram so they display correctly. Also useful for printing large images across multiple pages, creating jigsaw puzzles, or abstract artistic projects.',
+    howItWorks: 'Pick a grid and the splitter divides your image into that many equal tiles: 2 by 2, 3 by 3, 4 by 4, or a custom number of rows and columns. Every tile is cut from the original at full resolution, drawn from its own region of the photo rather than from a shrunk preview, so the pieces stay sharp when they are posted at full size. The tiles are exported as separate PNG files and bundled into one ZIP. They are ordered in reading sequence, left to right and top to bottom, which is the order an Instagram carousel needs.',
     privacy: 'Image splitting happens entirely in your browser—your photos never leave your device.',
     faqs: [
       { question: 'How do I use this as an Instagram grid maker?', answer: 'Upload your image, select 3x3 (for a nine-post grid), and download the ZIP. Instagram displays carousel images in upload order, so upload piece 9 first, then 8, then 7, and so on. The final profile display will show your complete grid image.' },
@@ -304,6 +320,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download your finished collage—no watermark, completely free.' }
     ],
     angle: 'Layout variety includes classic grids for clean photo arrays, side-by-side for before/after comparisons or dual portraits, and vertical stacks for stories or timeline presentations. Each layout automatically arranges your images for balanced composition. No app to download, no account required, and no watermarks on your finished collage. Professional results in seconds.',
+    howItWorks: 'Choose a layout and the collage maker builds a single canvas with a cell for each of your photos: two side by side, two stacked, three in a row, a 2 by 2 grid, and more. Each photo is scaled and placed into its cell, and the combined picture is exported as one image file. The layouts are fixed grids rather than freeform canvases, which keeps edges aligned and spacing even without any dragging around. Swap the layout and the same photos are rearranged instantly, so you can try a horizontal strip and a square grid before deciding which one to download.',
     privacy: 'Collage creation happens entirely in your browser—your photos are never uploaded to any server.',
     faqs: [
       { question: 'How do I make a collage online free?', answer: 'Upload 2-9 images, choose your preferred layout, and download. No registration required, no watermarks added, and no limit on how many collages you can create. Everything happens instantly in your browser.' },
@@ -321,6 +338,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download your cropped image at the correct aspect ratio.' }
     ],
     angle: 'Each social platform has specific aspect ratio requirements for optimal display. Instagram feed posts accept 1:1 (square), 4:5 (portrait), or 1.91:1 (landscape). Instagram Stories and Reels require 9:16. YouTube thumbnails are 16:9. TikTok videos are 9:16. Using incorrect aspect ratios results in black bars, cropping, or poor display. This tool ensures your images fit perfectly.',
+    howItWorks: 'The presets lock the crop frame to a fixed shape: 1:1 for a square post, 16:9 for video thumbnails, 9:16 for stories, 4:5 for portrait posts, and others. You drag and scale the frame over your photo, and the frame can grow or shrink but never change shape, so the composition you settle on is exactly the ratio the platform expects. When you confirm, the selected region is drawn from the original photo at full resolution onto a canvas and downloaded as a JPEG. The platform gets its ratio, and you keep every pixel inside the frame.',
     privacy: 'Aspect ratio cropping happens entirely in your browser—images never leave your device.',
     faqs: [
       { question: 'How do I crop photo for Instagram story?', answer: 'Select the 9:16 (Stories/Reels) preset. This vertical aspect ratio fills the entire screen in Instagram Stories, IGTV, and Reels. Position your image within the tall crop frame and download.' },
@@ -338,6 +356,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download your filtered image with all effects baked in.' }
     ],
     angle: 'Visual adjustments are intuitive with real-time feedback. Drag the brightness slider to lighten underexposed photos or darken overexposed ones. Contrast adds pop to flat images or reduces harsh lighting. Saturation intensifies or mutes colors. Combine multiple adjustments for custom looks. Save presets by noting your favorite values.',
+    howItWorks: 'The five sliders, brightness, contrast, saturation, grayscale, and sepia, are combined into a single filter instruction. When you export, that instruction is applied by the canvas as it redraws your photo, so the effect is baked into the downloaded pixels rather than sitting on top as a display trick. The preset buttons simply move the sliders to known recipes, such as full grayscale for black and white or a warm sepia mix, and you can fine-tune from there. Because the preview uses the same filter values as the export, the photo you see is the photo you download.',
     privacy: 'Filter application happens entirely in your browser—your images are never uploaded to any external server.',
     faqs: [
       { question: 'How do I create a black and white photo filter online?', answer: 'Upload your image and click the "B&W" preset, or drag the Grayscale slider to 100%. The result is a classic black and white image. Fine-tune with brightness and contrast for optimal tonal range.' },
@@ -355,6 +374,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Preview and download your watermarked image.' }
     ],
     angle: 'Photographers use visible watermarks on portfolio images shared online to prevent theft while still showcasing their work. Position watermarks strategically—center placement provides strongest protection but may obscure key details. Corner placement with high opacity is more subtle but easier to crop out. Semi-transparent overlays (30-50% opacity) protect without ruining image appreciation.',
+    howItWorks: 'Your photo is drawn onto a canvas first. Then your watermark text is painted over it with the canvas text renderer, using the size, color, and opacity you set and placed at the position you picked on the image. Lower opacity keeps the mark readable to a person looking for it without shouting over the photo; higher opacity makes it obvious and harder to ignore. The marked image is exported as a new file with the text as part of the pixels. That is what makes it useful as a deterrent: the words are no longer a separate layer that a viewer can simply switch off.',
     privacy: 'Watermarking happens entirely in your browser—your photos never leave your device.',
     faqs: [
       { question: 'How do I add text watermark to photo?', answer: 'Upload your image, type your watermark text (name, brand, or copyright symbol), and customize the appearance. Adjust font size relative to your image, choose a color that contrasts or blends appropriately, set opacity, and position the text where you want it.' },
@@ -372,6 +392,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'View the decoded content and click links or copy text.' }
     ],
     angle: 'No app or live camera needed—works from any uploaded image or screenshot. This is useful when QR codes appear on websites, in documents, on TV screens, or in shared photos. Simply capture or save the QR image, upload it here, and decode. The extracted content might be a URL (which appears as a clickable link), text, contact info, or any other QR-encoded data.',
+    howItWorks: 'The reader draws your image onto a canvas and hands the pixels to a QR decoding library, which scans them for the finder patterns that mark a QR code and then decodes the grid inside. If a code is found, its contents are shown as text. Links are presented so you can open or copy them, and plain text can be copied as-is. No camera is involved at any point, which is why screenshots work so well here: a crisp screenshot of a code decodes just as reliably as a photograph of one, as long as the code is complete and not badly blurred.',
     privacy: 'QR code decoding happens entirely in your browser—your images are never uploaded to any server.',
     faqs: [
       { question: 'How do I decode QR code online?', answer: 'Upload any image containing a QR code. Our decoder scans the image, locates the QR code, and extracts the embedded information. The decoded text or URL appears instantly—click links directly or copy the content.' },
@@ -389,6 +410,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download your professional PDF invoice instantly.' }
     ],
     angle: 'Professional invoices make a strong impression on clients and improve payment speed. Our invoice template generator produces clean, elegant PDFs suitable for any industry. Automatic calculation eliminates math errors. Include your logo for brand consistency. Set payment terms (Net 15, Net 30, etc.) to communicate expectations clearly. No account required, no watermarks, no hidden fees.',
+    howItWorks: 'The invoice is drawn as a real PDF document, field by field, from the details you type in: your business information, the client, the invoice number and dates, and each line item with its quantity and price. The maths is done as you go. Line totals multiply quantity by price, the subtotal adds every line, your tax rate is applied on top of the subtotal, and the total is the two combined. If you add your logo, it is placed at the top of the document with your business details. When the numbers look right, one click generates the finished PDF, ready to send or file.',
     privacy: 'Invoice generation happens entirely in your browser—your business details and client information never leave your device.',
     faqs: [
       { question: 'Is this really a free invoice generator?', answer: 'Completely free with no restrictions. Create unlimited invoices with no watermarks, no required account, no hidden charges. Your data stays private since everything is generated in your browser without server processing.' },
@@ -406,6 +428,7 @@ const toolContent: Record<string, ToolContent> = {
       { step: 3, text: 'Download your professional receipt as a PDF.' }
     ],
     angle: 'Receipts serve important business functions: expense tracking for tax purposes, documentation for reimbursements, proof of purchase for warranty claims, and transaction records for bookkeeping. This free receipt maker works for many everyday cases — a restaurant or café issuing a customer receipt, a freelancer billing a client, a small shop recording a cash sale, or an employee documenting an expense for reimbursement. Add each item on its own line with quantity and price to create a clear itemized receipt, include tax where it applies, and note the payment method (cash, card, or transfer). Use this generator to create receipts for real, documented transactions in your business operations. Professional formatting makes records clear and audit-ready, and the finished receipt downloads as a clean PDF you can print, email, or attach to an expense report.',
+    howItWorks: 'The receipt generator takes the same details you would write on a paper receipt and typesets them into a clean PDF: your business name and details at the top, the date and receipt number, then each purchased item on its own line with its price. Line prices add up to the subtotal, tax is calculated on top when you include it, and the total and payment method close the document out. The layout is deliberately plain and narrow, like a real receipt, so it reads naturally when printed or attached to an expense report. Everything is generated in your browser from the numbers you entered, and the PDF downloads ready to keep.',
     privacy: 'Receipt generation happens entirely in your browser—your transaction details never leave your device.',
     faqs: [
       { question: 'How do I make a receipt online?', answer: 'Enter your business information, the customer name if applicable, the items purchased with prices, and the payment method. Click generate and download your receipt as a PDF. No account is needed and it works immediately in your browser.' },
@@ -447,7 +470,7 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
           Back to all tools
         </Link>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{content?.h1 || tool.name}</h1>
-        <p className="text-lg text-gray-600 max-w-3xl">{content?.intro || tool.description}</p>
+        <p id="tool-answer" className="text-lg text-gray-600 max-w-3xl">{content?.intro || tool.description}</p>
       </div>
 
       {children}
@@ -475,12 +498,19 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
             </section>
           )}
 
+          {content.howItWorks && (
+            <section className="mt-12 max-w-4xl">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
+              <p className="text-gray-600 leading-relaxed">{content.howItWorks}</p>
+            </section>
+          )}
+
           <section className="mt-8 max-w-4xl">
             <p className="text-gray-500 italic">{content.privacy}</p>
           </section>
 
           {content.faqs.length > 0 && (
-            <section className="mt-16 max-w-4xl">
+            <section id="faq" className="mt-16 max-w-4xl">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
               <div className="space-y-4">
                 {content.faqs.map((faq, i) => (

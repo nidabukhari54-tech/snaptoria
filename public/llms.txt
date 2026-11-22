@@ -1,11 +1,11 @@
 # Snaptoria
 
-> Snaptoria is a suite of 22 free browser-based image and document tools. Every tool runs entirely in the visitor's web browser — files are never uploaded to a server, so photos and documents stay on the user's own device.
+> Snaptoria is a suite of 22 free browser-based image and document tools. Every tool runs in your web browser, on your own device. Your files are never uploaded to a server, so your photos and documents stay yours.
 
 ## Pricing
 
-- Free: $0 — 10 actions per day across all tools, no signup required.
-- Pro: $9/month — unlimited actions, usage history and priority support.
+- Free: $0. You get 10 actions per day across all tools, and no signup is required.
+- Pro: $9/month. Unlimited actions, plus usage history and priority support.
 - Pricing page: https://snaptoria.vercel.app/pricing
 
 ## Tools

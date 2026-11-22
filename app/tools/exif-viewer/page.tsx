@@ -138,7 +138,7 @@ export default function ExifViewerPage() {
               )}
 
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-gray-900">Metadata ({Object.keys(exifData).length} fields)</h3>
+                <div className="font-semibold text-gray-900">Metadata ({Object.keys(exifData).length} fields)</div>
                 <Button
                   variant="ghost"
                   size="sm"

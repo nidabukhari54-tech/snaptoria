@@ -450,7 +450,7 @@ export default function PdfDpiCheckerPage() {
               </div>
 
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Page sizes</h3>
+                <div className="font-semibold text-gray-900 mb-2">Page sizes</div>
                 <div className="border rounded-lg overflow-hidden max-h-96 overflow-y-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -479,7 +479,7 @@ export default function PdfDpiCheckerPage() {
 
               {result.images.length > 0 && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Embedded images</h3>
+                  <div className="font-semibold text-gray-900 mb-2">Embedded images</div>
                   <div className="border rounded-lg overflow-hidden max-h-[28rem] overflow-y-auto">
                     <table className="w-full text-sm">
                       <thead>
