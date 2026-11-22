@@ -28,55 +28,55 @@ const homeFaqs = [
   {
     question: 'How do I check the DPI of an image?',
     answer:
-      'Open the Image DPI Checker and add your image — it reads the file in your browser and shows its DPI, pixel dimensions and the size it will print at 300 DPI. Print work is generally produced at 300 DPI, so if your image falls short at the size you need, the checker tells you before anything goes to press.',
+      'You check the DPI of an image by opening the Image DPI Checker and adding your file, and it reads the image in your browser and shows the DPI, the pixel dimensions, and the size it will print at 300 DPI. Print work is generally produced at 300 DPI, so if your image falls short at the size you need, you find out before anything goes to press.',
     href: '/tools/dpi-checker',
     linkLabel: 'Open the Image DPI Checker'
   },
   {
     question: 'How can I check the DPI of a PDF before printing?',
     answer:
-      'The PDF DPI Checker inspects every image embedded in your PDF and works out the effective DPI of each one at the size it will print. Images below 300 DPI are flagged, so you can spot the weak spots in a print file before sending it to the printer.',
+      'You check the DPI of a PDF before printing by opening the PDF DPI Checker and adding your file, and it inspects every image embedded in the document. It works out the effective DPI of each image at the size it will print, and the weakest image sets the verdict. Anything below 300 DPI is flagged, so you can fix the file before it reaches the printer.',
     href: '/tools/pdf-dpi-checker',
     linkLabel: 'Open the PDF DPI Checker'
   },
   {
     question: 'How can I tell if an image file is corrupted?',
     answer:
-      'Add the file to the Corrupt Image Detector and it will try to decode the image in your browser and check its structure. If the file is damaged, the tool explains the likely cause — an interrupted download, a bad copy or a failing memory card are common ones.',
+      'You tell if an image file is corrupted by adding it to the Corrupt Image Detector, which tries to read the file, decode it fully, and draw it to a canvas to check its structure. If the file passes, it is valid; if it fails, the tool names the stage that broke and the likely cause, such as an interrupted download or a failing memory card.',
     href: '/tools/corrupt-image-detector',
     linkLabel: 'Open the Corrupt Image Detector'
   },
   {
     question: 'Is it safe to compress images online?',
     answer:
-      "It depends on how the tool works. Upload-based compressors send your image to a company's server, where a copy sits until it is deleted. Snaptoria's Image Compressor runs entirely in your browser, so your image never leaves your device and there is no server copy to worry about.",
+      'It is safe to compress images online when the tool never takes your file, and that is how Snaptoria\'s Image Compressor works. Upload-based compressors send your image to a company\'s server, where a copy sits until it is deleted. Here, the compression runs entirely in your browser, so your image never leaves your device and there is no server copy to worry about.',
     href: '/tools/image-compressor',
     linkLabel: 'Open the Image Compressor'
   },
   {
     question: 'Where are my files processed?',
     answer:
-      'Entirely in your browser, on your own device. Snaptoria\u2019s tools read your file locally and process it in the tab — nothing is uploaded, transmitted or stored on a server, and closing the tab clears everything from memory.',
+      'Your files are processed entirely in your browser, on your own device, and nowhere else. Snaptoria\'s tools read your file locally and do the work inside the tab you have open. Nothing is uploaded, transmitted, or stored on a server at any point. When you close the tab, everything the tool was holding is cleared from memory as well.',
     href: '/tools',
     linkLabel: 'Browse all the tools'
   },
   {
     question: 'Do I need an account to use Snaptoria?',
-    answer: `No. Every tool works without an account — just open one and start. Free use includes 10 actions per day across all ${tools.length} tools, and the optional Pro plan ($9/month) removes the daily limit and adds usage history.`,
+    answer: `No, you do not need an account to use Snaptoria, because every tool works the moment you open it. Free use includes 10 actions per day across all ${tools.length} tools, with no signup and no card details. If you regularly need more, the optional Pro plan at $9 a month removes the daily limit and adds usage history and priority support.`,
     href: '/pricing',
     linkLabel: 'See pricing'
   },
   {
     question: 'Can I turn photos into a PDF for free?',
     answer:
-      'Yes. The Image to PDF Converter combines JPG, PNG and WebP images into a single PDF right in your browser — add your photos, arrange them and download the finished document. It is free and needs no signup.',
+      'Yes, you can turn photos into a PDF for free with the Image to PDF Converter, right in your browser. Add your JPG, PNG, or WebP photos, drag them into the order you want, and each one becomes its own page, scaled to fit without stretching. Download the finished document when it looks right. It is free and needs no signup.',
     href: '/tools/image-to-pdf',
     linkLabel: 'Open the Image to PDF Converter'
   },
   {
     question: 'How do I remove location data from a photo?',
     answer:
-      'Photos often carry EXIF metadata — camera details, settings and sometimes the GPS location where the photo was taken. The EXIF Viewer shows you exactly what is stored in your photo, and the same tool can strip the metadata and download a cleaned copy that is safe to share.',
+      'You remove location data from a photo by opening the EXIF Viewer, which shows you exactly what is stored inside the file, including camera details, settings, and GPS coordinates when they were recorded. If location data is there, download the cleaned copy the tool offers: the picture is redrawn without its metadata, so the copy is safe to share anywhere.',
     href: '/tools/exif-viewer',
     linkLabel: 'Open the EXIF Viewer'
   }
