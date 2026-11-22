@@ -12,10 +12,10 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Snaptoria - Free Online Image Tools | Compress, Resize, Convert',
-  description: `${tools.length} free browser-based image and document tools. Compress images, resize photos, convert HEIC to JPG, create PDFs, extract colors, remove EXIF metadata. 100% private - files never leave your device.`,
+  title: 'Snaptoria - Free Online Image Tools | Compress, Resize',
+  description: `${tools.length} free browser-based image and document tools. Compress, resize and convert images, create PDFs, remove EXIF data. 100% private, files never leave your device.`,
   alternates: {
-    canonical: '/',
+    canonical: SITE_URL,
   },
   icons: {
     icon: '/favicon.svg',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     google: 'vaKnJgCO3HqzjqDlYa76SFTBxSLKN8G62uZTKJQMTgg',
   },
   openGraph: {
-    title: 'Snaptoria - Free Online Image Tools',
-    description: `${tools.length} free tools: compress images, resize photos, convert formats, create PDFs. All processing happens in your browser for complete privacy.`,
+    title: 'Snaptoria - Free Online Image Tools | Compress, Resize',
+    description: `${tools.length} free browser-based image and document tools. Compress, resize and convert images, create PDFs, remove EXIF data. 100% private, files never leave your device.`,
     type: 'website',
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Snaptoria - Free Online Image Tools',
-    description: `Compress, resize, convert images free. ${tools.length} browser-based tools, 100% private processing.`,
+    title: 'Snaptoria - Free Online Image Tools | Compress, Resize',
+    description: `${tools.length} free browser-based image and document tools. Compress, resize and convert images, create PDFs, remove EXIF data. 100% private, files never leave your device.`,
     images: [`${SITE_URL}/og-image.jpg`],
   },
 }

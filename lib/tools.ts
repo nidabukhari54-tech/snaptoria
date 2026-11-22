@@ -50,8 +50,8 @@ export const tools = [
     description: 'Check PDF DPI online free. Inspect every image embedded in a PDF, see its pixel size, the size it prints at, and its effective DPI, and find out if your PDF is print-ready at 300 DPI.',
     icon: 'FileSearch',
     category: 'Document Tools',
-    metaTitle: 'PDF DPI Checker - Check PDF DPI & Image Resolution Online Free',
-    metaDesc: 'Free PDF DPI checker online. Check the DPI of a PDF by inspecting every embedded image — pixel dimensions, printed size and effective DPI — and see if it meets the 300 DPI print standard. No upload, runs in your browser.'
+    metaTitle: 'PDF DPI Checker - Check PDF DPI & Resolution Online Free',
+    metaDesc: 'Free PDF DPI checker. Check each image in your PDF for effective DPI, pixel size and print size against the 300 DPI standard. No upload, runs in your browser.'
   },
   {
     id: 'dpi-checker',
@@ -60,7 +60,7 @@ export const tools = [
     icon: 'Ruler',
     category: 'Image Analysis',
     metaTitle: 'DPI Checker - Check Image DPI Online Free for Print',
-    metaDesc: 'Free DPI checker online. Find out how to check the DPI of an image, see pixel dimensions and print size at 300 DPI, and check if your image is 300 DPI for printing.'
+    metaDesc: 'Free DPI checker online. See how to check the DPI of an image, view pixel dimensions and print size, and check if your image is 300 DPI for printing.'
   },
   {
     id: 'exif-viewer',
@@ -69,7 +69,7 @@ export const tools = [
     icon: 'Info',
     category: 'Image Analysis',
     metaTitle: 'EXIF Viewer - View Photo Metadata & Remove EXIF Data Free',
-    metaDesc: 'Free EXIF viewer online. View photo metadata — camera, GPS location, date and settings — then remove metadata from photos and strip EXIF data before sharing. No upload, runs in your browser.'
+    metaDesc: 'Free EXIF viewer online. View photo metadata, camera, GPS location, date and settings, then remove EXIF data before sharing. No upload, runs in your browser.'
   },
   {
     id: 'image-resolution-checker',
@@ -77,8 +77,8 @@ export const tools = [
     description: 'Check image resolution online free. See pixel dimensions, megapixels, aspect ratio, embedded DPI and the largest sharp print size, plus whether the image counts as high resolution.',
     icon: 'Expand',
     category: 'Image Analysis',
-    metaTitle: 'Image Resolution Checker - Check Image Resolution Online Free',
-    metaDesc: 'Free image resolution checker. Check the resolution of an image — pixel dimensions, megapixels, aspect ratio and DPI — and learn how to check if an image is high resolution for print, web or social media.'
+    metaTitle: 'Image Resolution Checker - Check Image Resolution Online',
+    metaDesc: 'Free image resolution checker. See pixel dimensions, megapixels, aspect ratio and DPI, and check if an image is high resolution for print, web or social media.'
   },
   {
     id: 'color-palette-extractor',
@@ -95,8 +95,8 @@ export const tools = [
     description: 'Check if image is corrupted. Validate image files before upload. Detect broken image files and diagnose why images won not open.',
     icon: 'AlertTriangle',
     category: 'Image Analysis',
-    metaTitle: 'Corrupt Image Checker - Check if Image is Corrupted Online Free',
-    metaDesc: 'Free corrupt image checker online. Check if a JPG, PNG or WebP image is corrupted, validate files before upload, and diagnose broken images that will not open. No upload to a server.'
+    metaTitle: 'Corrupt Image Checker - Check if Image is Corrupted Online',
+    metaDesc: 'Free corrupt image checker. Check if a JPG, PNG or WebP image is corrupted, validate files before upload, and diagnose broken images that will not open.'
   },
   {
     id: 'image-rotator',
@@ -140,7 +140,7 @@ export const tools = [
     description: 'Photo collage maker online free. Combine photos into one image with preset layouts. No watermark, no app download, no signup required.',
     icon: 'LayoutGrid',
     category: 'Image Processing',
-    metaTitle: 'Photo Collage Maker Free - Combine Photos Online No Watermark',
+    metaTitle: 'Photo Collage Maker Free - Combine Photos, No Watermark',
     metaDesc: 'Free online collage maker. Combine photos into one image. Multiple layouts, no watermark, no app download. Create photo collages instantly.'
   },
   {
@@ -149,7 +149,7 @@ export const tools = [
     description: 'Crop image to aspect ratio for social media. Presets: 1:1 Instagram, 16:9 YouTube, 9:16 Stories, 4:5 portrait. Perfect crops every time.',
     icon: 'Maximize2',
     category: 'Image Processing',
-    metaTitle: 'Crop Image to Aspect Ratio - Instagram, YouTube, TikTok Presets',
+    metaTitle: 'Crop Image to Aspect Ratio - Instagram, YouTube, TikTok',
     metaDesc: 'Crop photos to aspect ratio for social media. 1:1 Instagram, 16:9 YouTube, 9:16 Stories. Perfect crops for every platform instantly.'
   },
   {
@@ -194,8 +194,8 @@ export const tools = [
     description: 'Free receipt generator for business transactions. Create receipt PDF online for expense tracking and customer records. Professional formatting.',
     icon: 'Receipt',
     category: 'Document Tools',
-    metaTitle: 'Free Receipt Generator & Receipt Maker - Create Receipts Online',
-    metaDesc: 'Free receipt maker and generator. Create professional receipts online for business, restaurant and expense records. Itemized receipts, download as PDF instantly. No signup, no watermark.'
+    metaTitle: 'Free Receipt Generator & Receipt Maker - Create Receipts',
+    metaDesc: 'Free receipt maker and generator. Create professional itemized receipts for business and expense records, download as PDF instantly. No signup, no watermark.'
   }
 ] as const
 
