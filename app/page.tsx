@@ -9,16 +9,135 @@ import {
   Lock,
   Check,
   Star,
-  ArrowRight
+  ArrowRight,
+  MousePointerClick,
+  Cpu,
+  Download,
+  Printer,
+  Globe,
+  Briefcase
 } from 'lucide-react'
-import { OrganizationSchema, WebsiteSchema } from '@/components/schema'
-import { ToolCardVisual } from '@/components/tool-card-visual'
+import { OrganizationSchema, WebsiteSchema, ToolListSchema, FaqSchema } from '@/components/schema'
+import { ToolGridTabs } from '@/components/tool-grid-tabs'
+
+const heroChips = [
+  { label: 'Compress an image', href: '/tools/image-compressor' },
+  { label: 'Crop an image', href: '/tools/image-cropper' },
+  { label: 'Check image DPI', href: '/tools/dpi-checker' },
+  { label: 'Convert format', href: '/tools/image-format-converter' }
+]
+
+const homeFaqs = [
+  {
+    question: 'How do I check the DPI of an image?',
+    answer:
+      'Open the Image DPI Checker and add your image — it reads the file in your browser and shows its DPI, pixel dimensions and the size it will print at 300 DPI. Print work is generally produced at 300 DPI, so if your image falls short at the size you need, the checker tells you before anything goes to press.',
+    href: '/tools/dpi-checker',
+    linkLabel: 'Open the Image DPI Checker'
+  },
+  {
+    question: 'How can I check the DPI of a PDF before printing?',
+    answer:
+      'The PDF DPI Checker inspects every image embedded in your PDF and works out the effective DPI of each one at the size it will print. Images below 300 DPI are flagged, so you can spot the weak spots in a print file before sending it to the printer.',
+    href: '/tools/pdf-dpi-checker',
+    linkLabel: 'Open the PDF DPI Checker'
+  },
+  {
+    question: 'How can I tell if an image file is corrupted?',
+    answer:
+      'Add the file to the Corrupt Image Detector and it will try to decode the image in your browser and check its structure. If the file is damaged, the tool explains the likely cause — an interrupted download, a bad copy or a failing memory card are common ones.',
+    href: '/tools/corrupt-image-detector',
+    linkLabel: 'Open the Corrupt Image Detector'
+  },
+  {
+    question: 'Is it safe to compress images online?',
+    answer:
+      "It depends on how the tool works. Upload-based compressors send your image to a company's server, where a copy sits until it is deleted. Snaptoria's Image Compressor runs entirely in your browser, so your image never leaves your device and there is no server copy to worry about.",
+    href: '/tools/image-compressor',
+    linkLabel: 'Open the Image Compressor'
+  },
+  {
+    question: 'Where are my files processed?',
+    answer:
+      'Entirely in your browser, on your own device. Snaptoria\u2019s tools read your file locally and process it in the tab — nothing is uploaded, transmitted or stored on a server, and closing the tab clears everything from memory.',
+    href: '/tools',
+    linkLabel: 'Browse all the tools'
+  },
+  {
+    question: 'Do I need an account to use Snaptoria?',
+    answer: `No. Every tool works without an account — just open one and start. Free use includes 10 actions per day across all ${tools.length} tools, and the optional Pro plan ($9/month) removes the daily limit and adds usage history.`,
+    href: '/pricing',
+    linkLabel: 'See pricing'
+  },
+  {
+    question: 'Can I turn photos into a PDF for free?',
+    answer:
+      'Yes. The Image to PDF Converter combines JPG, PNG and WebP images into a single PDF right in your browser — add your photos, arrange them and download the finished document. It is free and needs no signup.',
+    href: '/tools/image-to-pdf',
+    linkLabel: 'Open the Image to PDF Converter'
+  },
+  {
+    question: 'How do I remove location data from a photo?',
+    answer:
+      'Photos often carry EXIF metadata — camera details, settings and sometimes the GPS location where the photo was taken. The EXIF Viewer shows you exactly what is stored in your photo, and the same tool can strip the metadata and download a cleaned copy that is safe to share.',
+    href: '/tools/exif-viewer',
+    linkLabel: 'Open the EXIF Viewer'
+  }
+]
+
+const useCaseGroups = [
+  {
+    icon: Printer,
+    title: 'For Print & Photography',
+    copy: 'Sending work to print or checking photos against a deadline? Verify resolution and DPI first, and know exactly what metadata your photos carry.',
+    toolIds: ['dpi-checker', 'pdf-dpi-checker', 'image-resolution-checker', 'exif-viewer']
+  },
+  {
+    icon: Globe,
+    title: 'For Web & Social',
+    copy: 'Lighter pages, faster loads and posts cropped to every platform\u2019s shape — without installing an app or uploading your images anywhere.',
+    toolIds: ['image-compressor', 'image-resizer', 'aspect-ratio-cropper', 'image-splitter', 'collage-maker']
+  },
+  {
+    icon: Briefcase,
+    title: 'For Documents & Business',
+    copy: 'Turn phone photos into tidy PDFs, raise professional invoices and receipts, and decode QR codes from screenshots.',
+    toolIds: ['image-to-pdf', 'invoice-generator', 'receipt-generator', 'qr-code-reader']
+  }
+]
+
+const specialistToolIds = ['dpi-checker', 'pdf-dpi-checker', 'corrupt-image-detector', 'image-resolution-checker']
+
+const comparisonRows = [
+  {
+    label: 'Where your files are processed',
+    snaptoria: 'In your browser, on your own device',
+    typical: 'Uploaded to the company\u2019s servers'
+  },
+  {
+    label: 'Copies of your files on a server',
+    snaptoria: 'None — nothing is uploaded, so nothing is stored',
+    typical: 'Kept on their servers for a period before deletion — from around an hour to 48 hours in the published policies of popular tools'
+  },
+  {
+    label: 'Free-plan limits',
+    snaptoria: `10 actions per day across all ${tools.length} tools; Pro ($9/month) is unlimited`,
+    typical: 'Per-task file-count and size caps are common — for example, 1 file per crop or 20 images per session on popular tools'
+  },
+  {
+    label: 'Specialist checkers (image DPI, PDF DPI, corrupt files)',
+    snaptoria: 'Built in',
+    typical: 'Not offered by the major image suites'
+  }
+]
 
 export default function HomePage() {
   return (
     <>
       <OrganizationSchema />
       <WebsiteSchema />
+      <ToolListSchema />
+      <FaqSchema faqs={homeFaqs} />
       <div>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-sky-50 via-white to-blue-50 py-20 md:py-32 overflow-hidden">
@@ -35,8 +154,8 @@ export default function HomePage() {
               <span className="text-sky-500">Files Never Leave Your Browser.</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Compress, resize, convert, and edit images 100% client-side.
-              No uploads to servers. No privacy concerns. Just powerful tools that work.
+              Compress, resize, convert, and check images 100% client-side.
+              No uploads to servers and no signup needed to use the tools. Just powerful tools that work right in your browser.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/tools">
@@ -50,6 +169,20 @@ export default function HomePage() {
                   View Pricing
                 </Button>
               </Link>
+            </div>
+            <div className="mt-10">
+              <p className="text-sm text-gray-500 mb-3">Jump straight to a popular tool:</p>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {heroChips.map((chip) => (
+                  <Link
+                    key={chip.href}
+                    href={chip.href}
+                    className="bg-white border border-sky-200 text-sky-700 hover:bg-sky-50 hover:border-sky-300 rounded-full px-4 py-2 text-sm font-medium shadow-sm transition-colors"
+                  >
+                    {chip.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -90,23 +223,7 @@ export default function HomePage() {
               From compression to conversion, DPI checking to PDF generation. Every tool you need, nothing you don&apos;t.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {tools.map((tool) => (
-              <Link key={tool.id} href={`/tools/${tool.id}`}>
-                <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-200 group">
-                  <CardContent className="p-6">
-                    <ToolCardVisual toolId={tool.id} />
-                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
-                      {tool.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 line-clamp-2">
-                      {tool.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+          <ToolGridTabs />
           <div className="text-center mt-8">
             <Link href="/tools">
               <Button variant="outline" size="lg">
@@ -118,8 +235,51 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Snaptoria */}
+      {/* How Snaptoria Works */}
       <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              How Snaptoria Works
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              No uploads, no queues, no server in the middle. Three steps, all inside your browser tab.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center">
+              <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                <MousePointerClick className="h-8 w-8 text-sky-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">1. Pick a tool</h3>
+              <p className="text-gray-600">
+                Choose from {tools.length} tools — compress, convert, check DPI, build a PDF and more. Every tool opens instantly, with no account and nothing to install.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                <Cpu className="h-8 w-8 text-sky-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">2. Your browser does the work</h3>
+              <p className="text-gray-600">
+                Modern browsers can read and process files locally, so your file is handled on your own device. It is never uploaded to a server — there is no server copy at any point.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                <Download className="h-8 w-8 text-sky-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">3. Download the result</h3>
+              <p className="text-gray-600">
+                Save the finished file straight from your browser. Nothing is stored anywhere, so closing the tab leaves nothing behind.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Snaptoria */}
+      <section className="py-16 md:py-24 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -167,8 +327,173 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Pricing Preview */}
+      {/* Privacy */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Why &ldquo;Never Uploaded&rdquo; Matters
+              </h2>
+            </div>
+            <div className="space-y-5 text-gray-600 text-lg leading-relaxed">
+              <p>
+                Most online image tools work by uploading your file to a company&apos;s server, processing it there,
+                and letting you download the result. That means a copy of your photo or document sits on someone
+                else&apos;s computer — and you are relying on their deletion policy, their security and their
+                promises about what happens to it.
+              </p>
+              <p>
+                Snaptoria removes the copy entirely. Your file is read by your own browser and processed in the
+                tab&apos;s memory on your device. Nothing is transmitted, so there is nothing stored on a server,
+                nothing waiting to be deleted, and nothing that could be exposed in a server breach.
+              </p>
+              <p>
+                That matters most for the files people hesitate to hand over: family photos with location data,
+                scanned documents, client work and business records. With Snaptoria they never leave your hands.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-6 mt-12">
+              <div className="flex items-start gap-3">
+                <Shield className="h-6 w-6 text-sky-500 shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Nothing transmitted</h3>
+                  <p className="text-sm text-gray-600">Your file never travels across the internet to reach a server.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Lock className="h-6 w-6 text-sky-500 shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">No server storage</h3>
+                  <p className="text-sm text-gray-600">There is no uploaded copy kept anywhere — closing the tab clears everything.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Zap className="h-6 w-6 text-sky-500 shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Nothing to wait for</h3>
+                  <p className="text-sm text-gray-600">No upload or download queues — processing starts the moment you add a file.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases */}
       <section className="py-16 md:py-24 bg-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Made for the Job at Hand
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Different work needs different tools. Here is where each group of Snaptoria tools earns its keep.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {useCaseGroups.map((group) => (
+              <Card key={group.title} className="border border-gray-200 shadow-sm bg-white">
+                <CardContent className="p-8">
+                  <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <group.icon className="h-8 w-8 text-sky-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{group.title}</h3>
+                  <p className="text-gray-600 mb-6">{group.copy}</p>
+                  <ul className="space-y-2">
+                    {group.toolIds.map((toolId) => {
+                      const tool = tools.find((t) => t.id === toolId)
+                      if (!tool) return null
+                      return (
+                        <li key={tool.id}>
+                          <Link
+                            href={`/tools/${tool.id}`}
+                            className="inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
+                          >
+                            {tool.name}
+                            <ArrowRight className="h-4 w-4" />
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Specialist Tools */}
+      <section className="py-16 md:py-24 bg-sky-50">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Specialist Checkers the Big Suites Skip
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Most image suites stop at compress, resize and convert. These specialist checkers answer the
+              questions that decide whether a file is actually usable — and you won&apos;t find them in the usual
+              image suites.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {specialistToolIds.map((toolId) => {
+              const tool = tools.find((t) => t.id === toolId)
+              if (!tool) return null
+              return (
+                <Link key={tool.id} href={`/tools/${tool.id}`}>
+                  <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 border border-sky-100 bg-white group">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
+                        {tool.name}
+                      </h3>
+                      <p className="text-sm text-gray-500 line-clamp-3">{tool.description}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Comparison */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Snaptoria vs. Upload-Based Tools
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              The difference is not the tool list — it is where your files go when you use them.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b-2 border-gray-200">
+                  <th className="py-4 pr-4 text-sm font-semibold text-gray-500 w-1/4"></th>
+                  <th className="py-4 px-4 text-base font-bold text-sky-600 w-[37.5%]">Snaptoria</th>
+                  <th className="py-4 pl-4 text-base font-semibold text-gray-500 w-[37.5%]">Typical upload-based tools</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr key={row.label} className="border-b border-gray-100 align-top">
+                    <th className="py-4 pr-4 text-sm font-semibold text-gray-900">{row.label}</th>
+                    <td className="py-4 px-4 text-sm text-gray-700">{row.snaptoria}</td>
+                    <td className="py-4 pl-4 text-sm text-gray-500">{row.typical}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Preview */}
+      <section className="py-16 md:py-24 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -249,7 +574,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -323,6 +648,35 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Straight answers about DPI, damaged files, privacy and how Snaptoria works.
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            {homeFaqs.map((faq) => (
+              <div key={faq.question} className="border-b border-gray-200 py-6 first:pt-0">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+                <p className="text-gray-600 mb-3">{faq.answer}</p>
+                <Link
+                  href={faq.href}
+                  className="inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
+                >
+                  {faq.linkLabel}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -72,6 +72,29 @@ export function WebsiteSchema() {
   )
 }
 
+export function ToolListSchema() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${SITE_NAME} Tools`,
+    description: `${tools.length} free browser-based image and document tools. Files are processed locally in your browser and never uploaded.`,
+    numberOfItems: tools.length,
+    itemListElement: tools.map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: tool.name,
+      url: `${SITE_URL}/tools/${tool.id}`,
+    })),
+  }
+
+  return (
+    <Script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
 interface FaqSchemaProps {
   faqs: { question: string; answer: string }[]
 }
