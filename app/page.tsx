@@ -125,6 +125,35 @@ const comparisonRows = [
   }
 ]
 
+function SectionHost({ src, line }: { src: string; line: string }) {
+  return (
+    <div className="mb-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+      <div className="hero-float shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt="Snaptoria mascot"
+          width={72}
+          height={72}
+          loading="lazy"
+          className="h-[72px] w-[72px] rounded-full object-cover shadow-lg ring-4 ring-white"
+        />
+      </div>
+      <div className="relative max-w-xs rounded-2xl bg-white px-4 py-2.5 text-center text-sm font-medium text-gray-700 shadow-md ring-1 ring-gray-900/5 sm:text-left">
+        <span
+          aria-hidden
+          className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-white sm:hidden"
+        />
+        <span
+          aria-hidden
+          className="absolute -left-1.5 top-1/2 hidden h-3 w-3 -translate-y-1/2 rotate-45 bg-white sm:block"
+        />
+        {line}
+      </div>
+    </div>
+  )
+}
+
 export default function HomePage() {
   return (
     <>
@@ -233,9 +262,10 @@ export default function HomePage() {
       </section>
 
       {/* Tool Grid */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-14 md:py-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
+            <SectionHost src="/mascot.webp" line={`All ${tools.length} run right here in your browser. Pick one and try it!`} />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               All Your Image Tools in One Place
             </h2>
@@ -256,9 +286,10 @@ export default function HomePage() {
       </section>
 
       {/* How Snaptoria Works */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-14 md:py-16 bg-sky-50">
         <div className="container">
           <div className="text-center mb-12">
+            <SectionHost src="/mascot-shutter.webp" line="Three steps, that's it. No uploads, no waiting rooms." />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               How Snaptoria Works
             </h2>
@@ -299,7 +330,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Snaptoria */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-14 md:py-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -348,15 +379,16 @@ export default function HomePage() {
       </section>
 
       {/* Privacy */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-14 md:py-16 bg-gradient-to-br from-sky-500 via-blue-600 to-blue-800">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <SectionHost src="/mascot-photo.webp" line="Your files stay on your device. That's the whole point." />
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Why &ldquo;Never Uploaded&rdquo; Matters
               </h2>
             </div>
-            <div className="space-y-5 text-gray-600 text-lg leading-relaxed">
+            <div className="space-y-5 text-sky-100 text-lg leading-relaxed">
               <p>
                 Most online image tools work by uploading your file to a company&apos;s server, processing it there,
                 and letting you download the result. That means a copy of your photo or document sits on someone
@@ -375,24 +407,24 @@ export default function HomePage() {
             </div>
             <div className="grid sm:grid-cols-3 gap-6 mt-12">
               <div className="flex items-start gap-3">
-                <Shield className="h-6 w-6 text-sky-500 shrink-0 mt-1" />
+                <Shield className="h-6 w-6 text-sky-300 shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Nothing transmitted</h3>
-                  <p className="text-sm text-gray-600">Your file never travels across the internet to reach a server.</p>
+                  <h3 className="font-semibold text-white mb-1">Nothing transmitted</h3>
+                  <p className="text-sm text-sky-100">Your file never travels across the internet to reach a server.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Lock className="h-6 w-6 text-sky-500 shrink-0 mt-1" />
+                <Lock className="h-6 w-6 text-sky-300 shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">No server storage</h3>
-                  <p className="text-sm text-gray-600">There is no uploaded copy kept anywhere — closing the tab clears everything.</p>
+                  <h3 className="font-semibold text-white mb-1">No server storage</h3>
+                  <p className="text-sm text-sky-100">There is no uploaded copy kept anywhere — closing the tab clears everything.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Zap className="h-6 w-6 text-sky-500 shrink-0 mt-1" />
+                <Zap className="h-6 w-6 text-sky-300 shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Nothing to wait for</h3>
-                  <p className="text-sm text-gray-600">No upload or download queues — processing starts the moment you add a file.</p>
+                  <h3 className="font-semibold text-white mb-1">Nothing to wait for</h3>
+                  <p className="text-sm text-sky-100">No upload or download queues — processing starts the moment you add a file.</p>
                 </div>
               </div>
             </div>
@@ -401,7 +433,7 @@ export default function HomePage() {
       </section>
 
       {/* Use Cases */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-14 md:py-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -445,7 +477,7 @@ export default function HomePage() {
       </section>
 
       {/* Specialist Tools */}
-      <section className="py-16 md:py-24 bg-sky-50">
+      <section className="py-14 md:py-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -479,9 +511,10 @@ export default function HomePage() {
       </section>
 
       {/* Comparison */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-14 md:py-16 bg-sky-50">
         <div className="container">
           <div className="text-center mb-12">
+            <SectionHost src="/mascot.webp" line="Same jobs, no server copies. See for yourself." />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Snaptoria vs. Upload-Based Tools
             </h2>
@@ -513,7 +546,7 @@ export default function HomePage() {
       </section>
 
       {/* Pricing Preview */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-14 md:py-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -594,7 +627,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-14 md:py-16 bg-white">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -673,9 +706,10 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-14 md:py-16 bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
+            <SectionHost src="/mascot-shutter.webp" line="Stuck on something? Answers below — or ask the assistant, bottom-right." />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Frequently Asked Questions
             </h2>
@@ -702,7 +736,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-sky-500">
+      <section className="py-14 md:py-16 bg-sky-500">
         <div className="container text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Get Started?
