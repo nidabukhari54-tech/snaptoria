@@ -904,23 +904,26 @@ export function HeroTool() {
 
   return (
     <div className="relative z-10 mx-auto mt-6 max-w-3xl text-left">
-      {/* Open-mouth mascot (public/mascot-mouth.webp — its mouth sits over the
-          drop zone's top edge, "receiving" the file) */}
-      <div className="pointer-events-none absolute -top-10 right-3 z-20 flex items-end md:-top-14 md:right-6">
+      {/* Big-mouth mascot (public/mascot-mouth.webp — the medallion crop is
+          zoomed onto the face so the wide-open mouth reads clearly; the
+          medallion sits over the drop zone's top edge, "receiving" the file) */}
+      <div className="pointer-events-none absolute -top-12 right-3 z-20 flex items-end md:-top-[76px] md:right-6">
         <div className="relative mb-14 mr-1 hidden max-w-[200px] rounded-2xl bg-white px-3.5 py-2.5 text-[13px] font-medium leading-snug text-gray-700 shadow-xl ring-1 ring-black/5 sm:block">
           {bubbleText}
           <span aria-hidden className="absolute -right-1 bottom-5 h-3 w-3 rotate-45 bg-white" />
         </div>
         <div className={dragOver ? 'hero-wiggle' : 'hero-float'}>
           <div key={chompKey} className={chompKey > 0 ? 'hero-chomp' : undefined}>
-            <NextImage
-              src="/mascot-mouth.webp"
-              alt="Snaptoria mascot with its mouth open, ready for your file"
-              width={128}
-              height={128}
-              priority
-              className="h-[76px] w-[76px] rounded-full object-cover shadow-2xl ring-4 ring-white md:h-[120px] md:w-[120px]"
-            />
+            <div className="h-[96px] w-[96px] overflow-hidden rounded-full shadow-2xl ring-4 ring-white md:h-[160px] md:w-[160px]">
+              <NextImage
+                src="/mascot-mouth.webp"
+                alt="Snaptoria mascot with its mouth wide open, ready for your file"
+                width={512}
+                height={512}
+                priority
+                className="h-full w-full origin-[50%_42%] scale-[1.8] object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
