@@ -11,16 +11,10 @@ import {
   Star,
   ArrowRight
 } from 'lucide-react'
-import * as Icons from 'lucide-react'
 import { OrganizationSchema, WebsiteSchema } from '@/components/schema'
+import { ToolCardVisual } from '@/components/tool-card-visual'
 
 export default function HomePage() {
-  const LucideIcon = (name: string) => {
-    const iconName = name as keyof typeof Icons
-    const Icon = Icons[iconName] as React.ComponentType<{ className?: string }>
-    return Icon ? <Icon className="h-8 w-8" /> : <Icons.Image className="h-8 w-8" />
-  }
-
   return (
     <>
       <OrganizationSchema />
@@ -36,7 +30,7 @@ export default function HomePage() {
               Privacy-first image tools
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              20 Tools, One Subscription.
+              {tools.length} Tools, One Subscription.
               <br />
               <span className="text-sky-500">Files Never Leave Your Browser.</span>
             </h1>
@@ -79,7 +73,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center justify-center gap-2 text-gray-300">
               <Sparkles className="h-5 w-5 text-sky-400" />
-              <span className="text-sm font-medium">20+ Tools</span>
+              <span className="text-sm font-medium">{tools.length} Tools</span>
             </div>
           </div>
         </div>
@@ -101,9 +95,7 @@ export default function HomePage() {
               <Link key={tool.id} href={`/tools/${tool.id}`}>
                 <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-200 group">
                   <CardContent className="p-6">
-                    <div className="bg-sky-50 rounded-lg p-3 w-fit mb-4 text-sky-600 group-hover:bg-sky-100 transition-colors">
-                      {LucideIcon(tool.icon)}
-                    </div>
+                    <ToolCardVisual toolId={tool.id} />
                     <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
                       {tool.name}
                     </h3>
@@ -118,7 +110,7 @@ export default function HomePage() {
           <div className="text-center mt-8">
             <Link href="/tools">
               <Button variant="outline" size="lg">
-                View all 20 tools
+                View all {tools.length} tools
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -165,7 +157,7 @@ export default function HomePage() {
                 <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
                   <Sparkles className="h-8 w-8 text-sky-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">20 Tools, One Price</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{tools.length} Tools, One Price</h3>
                 <p className="text-gray-600">
                   Stop paying for 10 separate subscriptions. Get all the tools you need with a single flat-rate plan.
                 </p>
@@ -199,7 +191,7 @@ export default function HomePage() {
                     </li>
                     <li className="flex items-center gap-2 text-gray-600">
                       <Check className="h-5 w-5 text-green-500" />
-                      All 20 tools included
+                      All {tools.length} tools included
                     </li>
                     <li className="flex items-center gap-2 text-gray-600">
                       <Check className="h-5 w-5 text-green-500" />
@@ -233,7 +225,7 @@ export default function HomePage() {
                     </li>
                     <li className="flex items-center gap-2 text-gray-600">
                       <Check className="h-5 w-5 text-sky-500" />
-                      All 20 tools included
+                      All {tools.length} tools included
                     </li>
                     <li className="flex items-center gap-2 text-gray-600">
                       <Check className="h-5 w-5 text-sky-500" />
@@ -318,7 +310,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-600 mb-6">
-                  &quot;20 tools for the price of one? This saved me hundreds compared to my previous subscriptions.&quot;
+                  &quot;{tools.length} tools for the price of one? This saved me hundreds compared to my previous subscriptions.&quot;
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="bg-sky-100 rounded-full w-10 h-10 flex items-center justify-center text-sky-600 font-semibold">

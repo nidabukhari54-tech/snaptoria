@@ -1,23 +1,17 @@
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { tools } from '@/lib/tools'
-import * as Icons from 'lucide-react'
+import { ToolCardVisual } from '@/components/tool-card-visual'
 
 export default function ToolsPage() {
   const categories = Array.from(new Set(tools.map((t) => t.category)))
-
-  const LucideIcon = (name: string) => {
-    const iconName = name as keyof typeof Icons
-    const Icon = Icons[iconName] as React.ComponentType<{ className?: string }>
-    return Icon ? <Icon className="h-6 w-6" /> : <Icons.Image className="h-6 w-6" />
-  }
 
   return (
     <div className="container py-12">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">All Tools</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          20 browser-based image and document tools. All processing happens locally on your device.
+          {tools.length} browser-based image and document tools. All processing happens locally on your device.
         </p>
       </div>
 
@@ -31,9 +25,7 @@ export default function ToolsPage() {
                 <Link key={tool.id} href={`/tools/${tool.id}`}>
                   <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-200 group">
                     <CardContent className="p-6">
-                      <div className="bg-sky-50 rounded-lg p-3 w-fit mb-4 text-sky-600 group-hover:bg-sky-100 transition-colors">
-                        {LucideIcon(tool.icon)}
-                      </div>
+                      <ToolCardVisual toolId={tool.id} />
                       <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
                         {tool.name}
                       </h3>

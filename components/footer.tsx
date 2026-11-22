@@ -13,7 +13,7 @@ export function Footer() {
               <span className="text-xl font-bold text-white">Snaptoria</span>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
-              20 browser-based image and document tools. Your files never leave your browser.
+              {tools.length} browser-based image and document tools. Your files never leave your browser.
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">

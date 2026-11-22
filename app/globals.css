@@ -80,3 +80,163 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Tool card micro-animations: pure CSS keyframes + inline SVG scenes. */
+/* Animations run on card hover (desktop) or when the card scrolls     */
+/* into view (touch). Transform/opacity only.                          */
+/* ------------------------------------------------------------------ */
+.tool-visual .ta {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-play-state: paused;
+}
+.tool-visual.ta-inview .ta,
+.group:hover .tool-visual .ta,
+.group:focus-within .tool-visual .ta {
+  animation-play-state: running;
+}
+.tool-visual .ta-write { transform-origin: left center; }
+
+/* 2- and 3-step label cyclers (delays set inline, negative to sync) */
+.ta-c1 { opacity: 1; }
+.ta-c2, .ta-c3 { opacity: 0; }
+.ta-cycle2 { animation: ta-cycle2 2.4s linear infinite; }
+.ta-cycle3 { animation: ta-cycle 3s linear infinite; }
+@keyframes ta-cycle2 {
+  0% { opacity: 1; } 44% { opacity: 1; } 50% { opacity: 0; }
+  94% { opacity: 0; } 100% { opacity: 1; }
+}
+@keyframes ta-cycle {
+  0% { opacity: 1; } 31% { opacity: 1; } 34% { opacity: 0; }
+  97% { opacity: 0; } 100% { opacity: 1; }
+}
+
+.ta-shrink { animation: ta-shrink 2.4s ease-in-out infinite; }
+@keyframes ta-shrink {
+  0% { transform: scale(1); } 40% { transform: scale(0.78); }
+  62% { transform: scale(0.78); } 100% { transform: scale(1); }
+}
+.ta-pulse { animation: ta-pulse 2s ease-in-out infinite; }
+@keyframes ta-pulse {
+  0%, 100% { transform: scale(0.94); } 50% { transform: scale(1.05); }
+}
+.ta-glide { animation: ta-glide 2.6s ease-in-out infinite; }
+@keyframes ta-glide {
+  0%, 100% { transform: translate(0, 0); } 50% { transform: translate(9px, -5px); }
+}
+.ta-scan-y { animation: ta-scan-y 2s ease-in-out infinite; }
+@keyframes ta-scan-y {
+  0% { transform: translateY(0); opacity: 0; } 12% { opacity: 1; }
+  88% { opacity: 1; } 100% { transform: translateY(34px); opacity: 0; }
+}
+.ta-pop { opacity: 0; animation: ta-pop 2.4s ease-out infinite; }
+@keyframes ta-pop {
+  0%, 45% { opacity: 0; transform: scale(0.4); }
+  60% { opacity: 1; transform: scale(1.12); }
+  72% { transform: scale(1); } 92% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1); }
+}
+.ta-fade-seq { opacity: 0; animation: ta-fade-seq 2.8s linear infinite; }
+@keyframes ta-fade-seq {
+  0% { opacity: 0; } 12% { opacity: 1; } 82% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+.ta-write { animation: ta-write 2.8s ease-out infinite; }
+@keyframes ta-write {
+  0% { transform: scaleX(0); } 35%, 92% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+.ta-spin-step { animation: ta-spin-step 3.6s ease-in-out infinite; }
+@keyframes ta-spin-step {
+  0%, 20% { transform: rotate(0deg); } 25%, 45% { transform: rotate(90deg); }
+  50%, 70% { transform: rotate(180deg); } 75%, 95% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+.ta-glitch { animation: ta-glitch 2.2s linear infinite; }
+@keyframes ta-glitch {
+  0%, 100% { transform: translateX(0); } 8% { transform: translateX(-2px); }
+  12% { transform: translateX(2px); } 16% { transform: translateX(0); }
+  58% { transform: translateX(1.5px); } 62% { transform: translateX(0); }
+}
+.ta-drop { opacity: 0; animation: ta-drop 2.8s ease-out infinite; }
+@keyframes ta-drop {
+  0% { transform: translateY(-9px); opacity: 0; } 22% { opacity: 1; }
+  40%, 86% { transform: translateY(0); opacity: 1; } 100% { opacity: 0; }
+}
+.ta-magnify { animation: ta-magnify 2.6s ease-in-out infinite; }
+@keyframes ta-magnify {
+  0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, 7px); }
+}
+.ta-aspect { animation: ta-aspect 3s ease-in-out infinite; }
+@keyframes ta-aspect {
+  0%, 30% { transform: scale(1, 1); } 38%, 63% { transform: scale(1.28, 0.66); }
+  71%, 96% { transform: scale(0.8, 1.06); } 100% { transform: scale(1, 1); }
+}
+.ta-code { animation: ta-code 1.8s linear infinite; }
+@keyframes ta-code {
+  0% { transform: translateY(5px); opacity: 0; } 20% { opacity: 1; }
+  80% { opacity: 1; } 100% { transform: translateY(-5px); opacity: 0; }
+}
+.ta-dissolve { animation: ta-dissolve 2.4s ease-in-out infinite; }
+@keyframes ta-dissolve {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.35; }
+}
+.ta-fav { animation: ta-fav 2.6s ease-in-out infinite; }
+@keyframes ta-fav {
+  0% { transform: translate(0, 0) scale(1); }
+  45%, 82% { transform: translate(-31px, -19px) scale(0.3); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.ta-from-l { animation: ta-from-l 2.8s ease-out infinite; }
+@keyframes ta-from-l {
+  0% { transform: translateX(-16px); opacity: 0.3; }
+  40%, 88% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(-16px); opacity: 0.3; }
+}
+.ta-from-r { animation: ta-from-r 2.8s ease-out infinite; }
+@keyframes ta-from-r {
+  0% { transform: translateX(16px); opacity: 0.3; }
+  40%, 88% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(16px); opacity: 0.3; }
+}
+.ta-from-t { animation: ta-from-t 2.8s ease-out infinite; }
+@keyframes ta-from-t {
+  0% { transform: translateY(-12px); opacity: 0.3; }
+  40%, 88% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-12px); opacity: 0.3; }
+}
+.ta-from-b { animation: ta-from-b 2.8s ease-out infinite; }
+@keyframes ta-from-b {
+  0% { transform: translateY(12px); opacity: 0.3; }
+  40%, 88% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(12px); opacity: 0.3; }
+}
+.ta-nudge-l { animation: ta-nudge-l 2.4s ease-in-out infinite; }
+@keyframes ta-nudge-l {
+  0%, 100% { transform: translateX(0); } 50% { transform: translateX(-3px); }
+}
+.ta-nudge-r { animation: ta-nudge-r 2.4s ease-in-out infinite; }
+@keyframes ta-nudge-r {
+  0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); }
+}
+.ta-wm { animation: ta-wm 2.8s ease-in-out infinite; }
+@keyframes ta-wm {
+  0% { opacity: 0; } 30%, 85% { opacity: 0.9; } 100% { opacity: 0; }
+}
+.ta-print { animation: ta-print 2.8s ease-in-out infinite; }
+@keyframes ta-print {
+  0% { transform: translateY(-5px); } 45%, 90% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+.ta-bob { animation: ta-bob 1.6s ease-in-out infinite; }
+@keyframes ta-bob {
+  0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-visual .ta { animation: none !important; }
+  .tool-visual .ta-pop,
+  .tool-visual .ta-fade-seq,
+  .tool-visual .ta-drop { opacity: 1 !important; }
+}

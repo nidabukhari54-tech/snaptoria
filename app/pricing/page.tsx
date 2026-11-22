@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Check, X, Sparkles } from 'lucide-react'
+import { tools } from '@/lib/tools'
 
 const features = [
   { name: 'Image Compressor', free: true, pro: true },
@@ -12,7 +13,7 @@ const features = [
   { name: 'DPI Checker', free: true, pro: true },
   { name: 'EXIF Viewer', free: true, pro: true },
   { name: 'Color Palette', free: true, pro: true },
-  { name: 'All 20 Tools', free: true, pro: true },
+  { name: `All ${tools.length} Tools`, free: true, pro: true },
   { name: 'Client-side Processing', free: true, pro: true },
   { name: 'Daily Actions', free: '10/day', pro: 'Unlimited' },
   { name: 'Usage History', free: false, pro: true },
@@ -48,7 +49,7 @@ export default function PricingPage() {
             <ul className="space-y-3 mb-8">
               <li className="flex items-center gap-2 text-gray-600">
                 <Check className="h-5 w-5 text-green-500" />
-                All 20 tools included
+                All {tools.length} tools included
               </li>
               <li className="flex items-center gap-2 text-gray-600">
                 <Check className="h-5 w-5 text-green-500" />
@@ -101,7 +102,7 @@ export default function PricingPage() {
             <ul className="space-y-3 mb-8">
               <li className="flex items-center gap-2 text-gray-700">
                 <Check className="h-5 w-5 text-sky-500" />
-                All 20 tools included
+                All {tools.length} tools included
               </li>
               <li className="flex items-center gap-2 text-gray-700">
                 <Check className="h-5 w-5 text-sky-500" />

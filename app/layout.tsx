@@ -6,13 +6,14 @@ import { Footer } from '@/components/footer'
 import { ChatWidget } from '@/components/chat-widget'
 import { Toaster } from '@/components/ui/toaster'
 import { SITE_URL, SITE_NAME } from '@/lib/site'
+import { tools } from '@/lib/tools'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'Snaptoria - Free Online Image Tools | Compress, Resize, Convert',
-  description: '20 free browser-based image and document tools. Compress images, resize photos, convert HEIC to JPG, create PDFs, extract colors, remove EXIF metadata. 100% private - files never leave your device.',
+  description: `${tools.length} free browser-based image and document tools. Compress images, resize photos, convert HEIC to JPG, create PDFs, extract colors, remove EXIF metadata. 100% private - files never leave your device.`,
   alternates: {
     canonical: '/',
   },
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Snaptoria - Free Online Image Tools',
-    description: '20 free tools: compress images, resize photos, convert formats, create PDFs. All processing happens in your browser for complete privacy.',
+    description: `${tools.length} free tools: compress images, resize photos, convert formats, create PDFs. All processing happens in your browser for complete privacy.`,
     type: 'website',
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Snaptoria - Free Online Image Tools',
-    description: 'Compress, resize, convert images free. 20 browser-based tools, 100% private processing.',
+    description: `Compress, resize, convert images free. ${tools.length} browser-based tools, 100% private processing.`,
   },
 }
 

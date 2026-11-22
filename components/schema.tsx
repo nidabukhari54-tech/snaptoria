@@ -34,7 +34,7 @@ export function OrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: SITE_NAME,
-    description: '20 browser-based image and document tools. All processing happens locally on your device.',
+    description: `${tools.length} browser-based image and document tools. All processing happens locally on your device.`,
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
     sameAs: [
@@ -56,7 +56,7 @@ export function WebsiteSchema() {
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
-    description: '20 browser-based image and document tools. All processing happens locally on your device.',
+    description: `${tools.length} browser-based image and document tools. All processing happens locally on your device.`,
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_URL}/tools?q={search_term_string}`,

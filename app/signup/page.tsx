@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { Sparkles, Loader2, Check } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { tools } from '@/lib/tools'
 import { useToast } from '@/hooks/use-toast'
 
 export default function SignupPage() {
@@ -103,7 +104,7 @@ export default function SignupPage() {
               <span className="text-xl font-bold text-gray-900">Snaptoria</span>
             </Link>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Create your account</h1>
-            <p className="text-gray-500">Get unlimited access to all 20 tools</p>
+            <p className="text-gray-500">Get unlimited access to all {tools.length} tools</p>
           </div>
 
           <Button
