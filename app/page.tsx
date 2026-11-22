@@ -178,7 +178,7 @@ function WaveDivider({
         className={`block h-8 w-full md:h-10 ${fillClass} ${flip ? '-scale-x-100' : ''}`}
       >
         <path
-          d="M0,36 C240,66 480,4 720,26 C960,48 1200,10 1440,34 L1440,60 L0,60 Z"
+          d="M0,60 L0,30 C180,54 340,58 520,42 C700,26 820,6 980,12 C1140,18 1280,46 1440,28 L1440,60 Z"
           fill="currentColor"
         />
       </svg>
@@ -200,7 +200,7 @@ function SurfWave({
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute bottom-0 left-1/2 w-screen -translate-x-1/2 ${heightClass} ${
+      className={`pointer-events-none absolute inset-x-0 bottom-14 md:bottom-16 ${heightClass} ${
         flip ? '-scale-x-100' : ''
       }`}
     >
@@ -210,7 +210,7 @@ function SurfWave({
         className={`absolute inset-0 block h-full w-full ${backClass}`}
       >
         <path
-          d="M0,58 C240,104 480,14 720,48 C960,82 1200,24 1440,64 L1440,120 L0,120 Z"
+          d="M0,120 L0,66 C170,26 300,18 470,32 C640,46 740,92 900,98 C1060,104 1180,40 1310,30 C1380,25 1410,40 1440,58 L1440,120 Z"
           fill="currentColor"
         />
       </svg>
@@ -220,7 +220,7 @@ function SurfWave({
         className={`absolute inset-0 block h-full w-full ${frontClass}`}
       >
         <path
-          d="M0,82 C260,118 520,46 780,74 C1040,102 1240,58 1440,90 L1440,120 L0,120 Z"
+          d="M0,120 L0,94 C200,64 330,52 530,56 C730,60 830,102 990,106 C1150,110 1260,64 1440,80 L1440,120 Z"
           fill="currentColor"
         />
       </svg>
@@ -353,6 +353,7 @@ export default function HomePage() {
 
       {/* How Snaptoria Works */}
       <section className="relative overflow-hidden pt-14 md:pt-16 bg-sky-50">
+        <SurfWave backClass="text-sky-200" frontClass="text-sky-300/65" />
         <div className="container">
           <div className="text-center mb-12">
             <SectionHost src="/mascot-shutter.webp" line="Three steps, that's it. No uploads, no waiting rooms." />
@@ -364,7 +365,6 @@ export default function HomePage() {
             </p>
           </div>
           <div className="relative">
-            <SurfWave backClass="text-sky-300/40" frontClass="text-sky-200" />
             <div className="relative z-10 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="rounded-2xl border border-sky-100 bg-white px-6 py-8 text-center shadow-md">
               <div className="bg-sky-100 rounded-full p-4 w-16 h-16 mx-auto mb-6 flex items-center justify-center">
@@ -401,6 +401,7 @@ export default function HomePage() {
 
       {/* Why Snaptoria */}
       <section className="relative overflow-hidden pt-14 md:pt-16 bg-white">
+        <SurfWave backClass="text-sky-200" frontClass="text-sky-300/60" flip />
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -411,7 +412,6 @@ export default function HomePage() {
             </p>
           </div>
           <div className="relative">
-            <SurfWave backClass="text-sky-100" frontClass="text-sky-200" flip />
             <div className="relative z-10 grid md:grid-cols-3 gap-8">
             <Card className="rounded-2xl border border-sky-100 bg-white shadow-lg">
               <CardContent className="p-8 text-center">
@@ -454,6 +454,11 @@ export default function HomePage() {
 
       {/* Privacy */}
       <section className="relative overflow-hidden pt-14 md:pt-16 bg-gradient-to-br from-sky-500 via-blue-600 to-blue-800">
+        <SurfWave
+          backClass="text-white/25"
+          frontClass="text-white/40"
+          heightClass="h-[100px] md:h-[110px]"
+        />
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
@@ -480,11 +485,6 @@ export default function HomePage() {
               </p>
             </div>
             <div className="relative mt-12">
-              <SurfWave
-                backClass="text-white/15"
-                frontClass="text-white/25"
-                heightClass="h-[100px] md:h-[110px]"
-              />
               <div className="relative z-10 grid justify-items-center gap-8 sm:grid-cols-3">
                 <div className="flex h-52 w-52 flex-col items-center justify-center rounded-full bg-white/10 px-6 text-center ring-1 ring-white/40 backdrop-blur-sm">
                   <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30">
@@ -516,6 +516,7 @@ export default function HomePage() {
 
       {/* Use Cases */}
       <section className="relative overflow-hidden pt-14 md:pt-16 bg-white">
+        <SurfWave backClass="text-sky-200" frontClass="text-sky-300/65" />
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -526,7 +527,6 @@ export default function HomePage() {
             </p>
           </div>
           <div className="relative">
-            <SurfWave backClass="text-sky-100" frontClass="text-sky-200" />
             <div className="relative z-10 grid md:grid-cols-3 gap-8">
             {useCaseGroups.map((group) => (
               <Card key={group.title} className="rounded-2xl border border-sky-100 shadow-lg bg-white">
@@ -872,7 +872,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <Link href="/pricing">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-sky-600">
+              <Button size="lg" variant="outline" className="border-2 border-white bg-transparent font-bold text-white hover:bg-white/10 hover:text-white">
                 View Pricing
               </Button>
             </Link>
