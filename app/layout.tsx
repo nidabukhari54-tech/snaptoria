@@ -29,11 +29,20 @@ export const metadata: Metadata = {
     type: 'website',
     url: SITE_URL,
     siteName: SITE_NAME,
+    images: [
+      {
+        url: `${SITE_URL}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'Snaptoria - Free Online Image Tools',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Snaptoria - Free Online Image Tools',
     description: `Compress, resize, convert images free. ${tools.length} browser-based tools, 100% private processing.`,
+    images: [`${SITE_URL}/og-image.jpg`],
   },
 }
 

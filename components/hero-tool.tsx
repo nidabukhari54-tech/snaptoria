@@ -18,6 +18,7 @@ import {
   XCircle,
   Info,
   ChevronDown,
+  Volume2,
 } from 'lucide-react'
 
 /* ------------------------------------------------------------------ */
@@ -299,6 +300,9 @@ export function HeroTool() {
   const [result, setResult] = useState<HeroResult | null>(null)
   const [resultKey, setResultKey] = useState(0)
   const [dragOver, setDragOver] = useState(false)
+  const [chompKey, setChompKey] = useState(0)
+  const [ttsSupported, setTtsSupported] = useState(false)
+  const [speaking, setSpeaking] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const runSeq = useRef(0)
@@ -334,6 +338,7 @@ export function HeroTool() {
     setResult(null)
     setBusy(null)
     setRotation(0)
+    setChompKey((k) => k + 1) // mascot takes a happy chomp as the file lands
     setFile(f)
     if (isPdf) {
       setKind('pdf')
@@ -845,26 +850,78 @@ export function HeroTool() {
       ? Math.round((1 - result.after / result.before) * 100)
       : null
 
+  /* ------------------------- mascot + talking guide ------------------------- */
+
+  const bubbleText = result
+    ? 'Done! Download it below — or feed me another.'
+    : dragOver
+      ? 'Yes — drop it right here!'
+      : file
+        ? "Got it! Pick a tool below and I'll get to work."
+        : "Feed me a photo or PDF — I'll do the work right here!"
+
+  const guideLine = result
+    ? 'Done! Download your result, or clear the file and try another tool.'
+    : file && isFullTool
+      ? 'That tool needs a full workspace — tap its button and it opens on its own page, ready to use.'
+      : file
+        ? 'Your file is in! Now choose what to do with it from the dropdown, then press Run.'
+        : "Hi! I'm your guide. Drop a photo or PDF in the box above, pick a tool from the dropdown, and press Run — it all happens in your browser, nothing is uploaded."
+
+  useEffect(() => {
+    setTtsSupported(typeof window !== 'undefined' && 'speechSynthesis' in window)
+  }, [])
+
+  // Stop speaking when the flow moves on or the panel unmounts.
+  useEffect(() => {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel()
+    setSpeaking(false)
+  }, [guideLine])
+
+  useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel()
+    }
+  }, [])
+
+  const speakGuide = () => {
+    if (!ttsSupported) return
+    const synth = window.speechSynthesis
+    synth.cancel()
+    const utterance = new SpeechSynthesisUtterance(guideLine)
+    utterance.lang = 'en-US'
+    utterance.rate = 1
+    const englishVoice = synth.getVoices().find((v) => v.lang?.toLowerCase().startsWith('en'))
+    if (englishVoice) utterance.voice = englishVoice
+    utterance.onend = () => setSpeaking(false)
+    utterance.onerror = () => setSpeaking(false)
+    setSpeaking(true)
+    synth.speak(utterance)
+  }
+
   const selectClasses =
     'w-full appearance-none rounded-xl border border-gray-300 bg-white py-2.5 pl-3.5 pr-9 text-sm font-medium text-gray-800 shadow-sm transition-colors focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200'
 
   return (
     <div className="relative z-10 mx-auto mt-6 max-w-3xl text-left">
-      {/* Mascot (public/mascot.webp — swap this one file to change the character) */}
-      <div className="pointer-events-none absolute -top-9 right-3 z-20 flex items-end md:-top-12 md:right-6">
-        <div className="relative mb-12 mr-1 hidden max-w-[190px] rounded-2xl bg-white px-3.5 py-2.5 text-[13px] font-medium leading-snug text-gray-700 shadow-xl ring-1 ring-black/5 sm:block">
-          Hi! Drop a file and I&rsquo;ll sort it in seconds.
+      {/* Open-mouth mascot (public/mascot-mouth.webp — its mouth sits over the
+          drop zone's top edge, "receiving" the file) */}
+      <div className="pointer-events-none absolute -top-10 right-3 z-20 flex items-end md:-top-14 md:right-6">
+        <div className="relative mb-14 mr-1 hidden max-w-[200px] rounded-2xl bg-white px-3.5 py-2.5 text-[13px] font-medium leading-snug text-gray-700 shadow-xl ring-1 ring-black/5 sm:block">
+          {bubbleText}
           <span aria-hidden className="absolute -right-1 bottom-5 h-3 w-3 rotate-45 bg-white" />
         </div>
-        <div className="hero-float">
-          <NextImage
-            src="/mascot.webp"
-            alt="Snaptoria mascot"
-            width={128}
-            height={128}
-            priority
-            className="h-[72px] w-[72px] rounded-full object-cover shadow-2xl ring-4 ring-white md:h-28 md:w-28"
-          />
+        <div className={dragOver ? 'hero-wiggle' : 'hero-float'}>
+          <div key={chompKey} className={chompKey > 0 ? 'hero-chomp' : undefined}>
+            <NextImage
+              src="/mascot-mouth.webp"
+              alt="Snaptoria mascot with its mouth open, ready for your file"
+              width={128}
+              height={128}
+              priority
+              className="h-[76px] w-[76px] rounded-full object-cover shadow-2xl ring-4 ring-white md:h-[120px] md:w-[120px]"
+            />
+          </div>
         </div>
       </div>
       <div
@@ -1140,6 +1197,31 @@ export function HeroTool() {
           <Lock className="h-3.5 w-3.5" />
           Your file never leaves this tab — everything runs in your browser.
         </p>
+      </div>
+
+      {/* Talking guide — Shutter Buddy explains the flow and can read it aloud */}
+      <div className="mt-5 flex items-center gap-3 rounded-3xl bg-white p-4 shadow-xl ring-1 ring-black/5 sm:gap-4 sm:p-5">
+        <div className={`flex-shrink-0 ${speaking ? 'guide-talk' : ''}`}>
+          <NextImage
+            src="/mascot-shutter.webp"
+            alt="Snaptoria guide"
+            width={64}
+            height={64}
+            className="h-14 w-14 rounded-full object-cover ring-2 ring-sky-100 md:h-16 md:w-16"
+          />
+        </div>
+        <p className="min-w-0 flex-1 text-sm leading-relaxed text-gray-700">{guideLine}</p>
+        {ttsSupported && (
+          <button
+            type="button"
+            onClick={speakGuide}
+            aria-label="Listen to the guide"
+            className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-xl bg-sky-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-600"
+          >
+            <Volume2 className="h-4 w-4" />
+            Listen
+          </button>
+        )}
       </div>
 
       {/* Samples */}

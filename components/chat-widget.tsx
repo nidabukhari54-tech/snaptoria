@@ -68,7 +68,7 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
         aria-label="Open Snaptoria Assistant"
       >
         <Image
-          src="/mascot-shutter.webp"
+          src="/mascot-photo.webp"
           alt=""
           width={56}
           height={56}
@@ -106,7 +106,7 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
             <div key={i} className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : ''}`}>
               {msg.role === 'bot' && (
                 <Image
-                  src="/mascot-shutter.webp"
+                  src="/mascot-photo.webp"
                   alt=""
                   width={32}
                   height={32}

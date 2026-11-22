@@ -253,6 +253,28 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Mascot excitement while a file is dragged over the panel */
+.hero-wiggle { animation: hero-wiggle 0.5s ease-in-out infinite; }
+@keyframes hero-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg) translateY(-2px); }
+  75% { transform: rotate(5deg) translateY(-2px); }
+}
+/* One-shot chomp when a file lands */
+.hero-chomp { animation: hero-chomp 0.55s ease-out both; }
+@keyframes hero-chomp {
+  0% { transform: scale(1, 1); }
+  30% { transform: scale(1.12, 0.82); }
+  55% { transform: scale(0.94, 1.1); }
+  75% { transform: scale(1.05, 0.96); }
+  100% { transform: scale(1, 1); }
+}
+/* Talking guide bob while speech plays */
+.guide-talk { animation: guide-talk 0.36s ease-in-out infinite; }
+@keyframes guide-talk {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.04); }
+}
 @media (prefers-reduced-motion: reduce) {
-  .hero-float, .hero-float-delay, .hero-result-reveal { animation: none !important; }
+  .hero-float, .hero-float-delay, .hero-result-reveal, .hero-wiggle, .hero-chomp, .guide-talk { animation: none !important; }
 }
