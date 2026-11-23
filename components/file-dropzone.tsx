@@ -1,9 +1,10 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Upload, X, Image as ImageIcon } from 'lucide-react'
+import { MascotDropVisual } from '@/components/mascot-drop-visual'
 
 interface FileDropzoneProps {
   accept?: string
@@ -28,9 +29,15 @@ export function FileDropzone({
   previews,
   label = 'Drop an image here or click to upload'
 }: FileDropzoneProps) {
+  // Visual-only drag state: drives the mascot's wiggle/chomp and the zone highlight.
+  const [isDragging, setIsDragging] = useState(false)
+  const [chompKey, setChompKey] = useState(0)
+
   const handleDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault()
+      setIsDragging(false)
+      setChompKey((k) => k + 1)
       const droppedFiles = Array.from(e.dataTransfer.files)
       if (multiple && droppedFiles.length > 0) {
         droppedFiles.forEach((f) => onFileSelect(f))
@@ -43,6 +50,11 @@ export function FileDropzone({
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
+    setIsDragging(true)
+  }, [])
+
+  const handleDragLeave = useCallback(() => {
+    setIsDragging(false)
   }, [])
 
   const handleInputChange = useCallback(
@@ -121,11 +133,14 @@ export function FileDropzone({
     <Card
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      className="border-dashed border-2 hover:border-sky-400 transition-colors cursor-pointer"
+      onDragLeave={handleDragLeave}
+      className={`border-dashed border-2 transition-colors cursor-pointer ${
+        isDragging ? 'border-sky-500 bg-sky-50' : 'hover:border-sky-400'
+      }`}
     >
-      <CardContent className="p-12 flex flex-col items-center justify-center text-center">
-        <div className="bg-sky-50 rounded-full p-4 mb-4">
-          <Upload className="h-8 w-8 text-sky-500" />
+      <CardContent className="p-8 md:p-10 flex flex-col items-center justify-center text-center">
+        <div className="mb-2">
+          <MascotDropVisual active={isDragging} chompKey={chompKey} />
         </div>
         <p className="text-gray-600 mb-4">{label}</p>
         <Button

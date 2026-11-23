@@ -87,8 +87,8 @@ export default function ImageCropperPage() {
 
   return (
     <ToolLayout tool={tool}>
-      <Card className="max-w-4xl mx-auto">
-        <CardContent className="p-6 md:p-8">
+      <Card className="mx-auto max-w-4xl rounded-none border-0 bg-transparent shadow-none">
+        <CardContent className="p-0">
           <FileDropzone
             onFileSelect={handleFileSelect}
             file={file}

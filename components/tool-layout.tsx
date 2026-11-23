@@ -501,7 +501,7 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
       <section className="relative overflow-hidden bg-gradient-to-br from-sky-500 via-blue-700 to-blue-800 text-white">
         <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-400/30 blur-3xl" />
         <div aria-hidden className="pointer-events-none absolute -left-32 bottom-0 h-64 w-64 rounded-full bg-blue-400/20 blur-3xl" />
-        <div className="container relative pt-8 md:pt-12">
+        <div className="container relative mx-auto px-4 pt-8 sm:px-6 md:pt-12 lg:px-8">
           <Link href="/" className="mb-6 inline-flex items-center text-sm text-sky-100 transition-colors hover:text-white">
             <ChevronLeft className="mr-1 h-4 w-4" />
             Back to all tools
@@ -510,7 +510,7 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
             <div className="group w-40 shrink-0 rounded-2xl bg-white/10 p-3 ring-1 ring-white/25 backdrop-blur-sm md:w-56 [&_.tool-visual]:mb-0">
               <ToolCardVisual toolId={tool.id} />
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">{content?.h1 || tool.name}</h1>
               <p id="tool-answer" className="max-w-3xl text-lg text-white/90">{content?.intro || tool.description}</p>
               <div className="mt-5 flex flex-wrap gap-2.5">
@@ -524,13 +524,20 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
                 </span>
               </div>
             </div>
+            {host && (
+              <img
+                src={host.img}
+                alt=""
+                className="hidden h-40 w-40 shrink-0 self-center rounded-full bg-white object-cover shadow-xl ring-4 ring-white/30 lg:block xl:h-44 xl:w-44"
+              />
+            )}
           </div>
         </div>
         <BandWave />
       </section>
 
       <section className="bg-white pb-12 md:pb-16">
-        <div className="container">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 -mt-4 rounded-3xl bg-white p-4 shadow-xl ring-1 ring-sky-100 sm:p-6 md:-mt-6 md:p-8">
             {children}
 
@@ -541,7 +548,7 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
       {content && (
         <>
           <section className="bg-sky-50 py-12 md:py-16">
-            <div className="container">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="mb-6 text-2xl font-bold text-gray-900">How to Use</h2>
               <ol className="grid gap-4 md:grid-cols-3">
                 {content.howTo.map((item) => (
@@ -558,19 +565,17 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
 
           {content.angle && (
             <section className="bg-white py-12 md:py-16">
-              <div className="container">
-                <div className="max-w-3xl">
-                  <h2 className="mb-4 text-2xl font-bold text-gray-900">Key Features</h2>
-                  <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100 md:p-8">
-                    <p className="leading-relaxed text-gray-600">{content.angle}</p>
-                  </div>
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900">Key Features</h2>
+                <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100 md:p-8">
+                  <p className="leading-relaxed text-gray-600">{content.angle}</p>
                 </div>
               </div>
             </section>
           )}
 
           <section className="bg-sky-50 py-12 md:py-16">
-            <div className="container">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               {host && (
                 <div className="mb-10 flex items-center gap-4">
                   <img
@@ -585,33 +590,31 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
                 </div>
               )}
               {content.howItWorks && (
-                <div className="max-w-3xl">
+                <div>
                   <h2 className="mb-4 text-2xl font-bold text-gray-900">How It Works</h2>
                   <p className="leading-relaxed text-gray-600">{content.howItWorks}</p>
                 </div>
               )}
-              <p className="mt-8 max-w-3xl italic text-gray-500">{content.privacy}</p>
+              <p className="mt-8 italic text-gray-500">{content.privacy}</p>
             </div>
           </section>
 
           {content.faqs.length > 0 && (
             <section id="faq" className="bg-white py-12 md:py-16">
-              <div className="container">
-                <div className="max-w-3xl">
-                  <h2 className="mb-6 text-2xl font-bold text-gray-900">Frequently Asked Questions</h2>
-                  <div className="space-y-4">
-                    {content.faqs.map((faq, i) => (
-                      <div key={i} className="flex gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100">
-                        <span aria-hidden className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-sky-500 font-bold text-white">
-                          ?
-                        </span>
-                        <div>
-                          <h3 className="mb-2 font-semibold text-gray-900">{faq.question}</h3>
-                          <p className="text-gray-600">{faq.answer}</p>
-                        </div>
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900">Frequently Asked Questions</h2>
+                <div className="space-y-4">
+                  {content.faqs.map((faq, i) => (
+                    <div key={i} className="flex gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100">
+                      <span aria-hidden className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-sky-500 font-bold text-white">
+                        ?
+                      </span>
+                      <div>
+                        <h3 className="mb-2 font-semibold text-gray-900">{faq.question}</h3>
+                        <p className="text-gray-600">{faq.answer}</p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>
@@ -621,7 +624,7 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
 
       {relatedTools.length > 0 && (
         <section className="bg-sky-50 py-12 md:py-16">
-          <div className="container">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="mb-6 text-2xl font-bold text-gray-900">Related & Popular Tools</h2>
             <div className="grid gap-4 md:grid-cols-3">
               {relatedTools.map((relatedTool) => (

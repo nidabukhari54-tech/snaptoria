@@ -68,8 +68,8 @@ export default function Base64ConverterPage() {
 
   return (
     <ToolLayout tool={tool}>
-      <Card className="max-w-4xl mx-auto">
-        <CardContent className="p-6 md:p-8">
+      <Card className="mx-auto max-w-4xl rounded-none border-0 bg-transparent shadow-none">
+        <CardContent className="p-0">
           <Tabs value={mode} onValueChange={(v) => setMode(v as 'image-to-base64' | 'base64-to-image')}>
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="image-to-base64">Image to Base64</TabsTrigger>
