@@ -2,9 +2,9 @@
 
 import { ReactNode } from 'react'
 import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
-import { ChevronLeft, ArrowRight } from 'lucide-react'
+import { ChevronLeft, ArrowRight, ShieldCheck, CloudOff } from 'lucide-react'
 import { tools, Tool } from '@/lib/tools'
+import { ToolCardVisual } from '@/components/tool-card-visual'
 import { ToolSchema, FaqSchema, BreadcrumbSchema, HowToSchema } from '@/components/schema'
 
 interface ToolLayoutProps {
@@ -443,8 +443,43 @@ const toolContent: Record<string, ToolContent> = {
   }
 }
 
+/** Corner-anchored wave closing the branded band (same geometry as the homepage WaveDivider). */
+function BandWave() {
+  return (
+    <div aria-hidden className="relative mt-6 -mb-px leading-none">
+      <svg
+        viewBox="0 0 1440 60"
+        preserveAspectRatio="none"
+        className="block h-8 w-full text-white md:h-10"
+      >
+        <path
+          d="M0,60 L0,30 C180,54 340,58 520,42 C700,26 820,6 980,12 C1140,18 1280,46 1440,28 L1440,60 Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  )
+}
+
+/** Mascot host per tool category: avatar + one factual line in the site's voice. */
+const categoryHosts: Record<string, { img: string; line: string }> = {
+  'Image Processing': {
+    img: '/mascot.webp',
+    line: 'I work right here in your browser. Nothing gets uploaded, ever.',
+  },
+  'Image Analysis': {
+    img: '/mascot-shutter.webp',
+    line: 'I read the numbers hidden inside your file and explain what they mean.',
+  },
+  'Document Tools': {
+    img: '/mascot-photo.webp',
+    line: 'I build your document on this device. It never leaves your hands.',
+  },
+}
+
 export function ToolLayout({ tool, children }: ToolLayoutProps) {
   const content = toolContent[tool.id]
+  const host = categoryHosts[tool.category]
   const priorityToolIds = ['image-compressor', 'image-to-pdf', 'image-format-converter', 'qr-code-reader', 'corrupt-image-detector', 'dpi-checker', 'receipt-generator', 'image-resizer']
   const sameCategory = tools.filter((t) => t.id !== tool.id && t.category === tool.category)
   const priorityTools = priorityToolIds
@@ -463,64 +498,121 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
       <BreadcrumbSchema tool={tool} />
       {content && <FaqSchema faqs={content.faqs} />}
       {content && <HowToSchema name={`How to Use ${tool.name}`} steps={content.howTo} />}
-      <div className="container py-8 md:py-12">
-      <div className="mb-8">
-        <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4">
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Back to all tools
-        </Link>
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{content?.h1 || tool.name}</h1>
-        <p id="tool-answer" className="text-lg text-gray-600 max-w-3xl">{content?.intro || tool.description}</p>
-      </div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-sky-500 via-blue-700 to-blue-800 text-white">
+        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-400/30 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -left-32 bottom-0 h-64 w-64 rounded-full bg-blue-400/20 blur-3xl" />
+        <div className="container relative pt-8 md:pt-12">
+          <Link href="/" className="mb-6 inline-flex items-center text-sm text-sky-100 transition-colors hover:text-white">
+            <ChevronLeft className="mr-1 h-4 w-4" />
+            Back to all tools
+          </Link>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+            <div className="group w-40 shrink-0 rounded-2xl bg-white/10 p-3 ring-1 ring-white/25 backdrop-blur-sm md:w-56 [&_.tool-visual]:mb-0">
+              <ToolCardVisual toolId={tool.id} />
+            </div>
+            <div className="min-w-0">
+              <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">{content?.h1 || tool.name}</h1>
+              <p id="tool-answer" className="max-w-3xl text-lg text-white/90">{content?.intro || tool.description}</p>
+              <div className="mt-5 flex flex-wrap gap-2.5">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white ring-1 ring-white/25">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  Runs 100% in your browser
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white ring-1 ring-white/25">
+                  <CloudOff className="h-3.5 w-3.5" />
+                  Files never uploaded
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <BandWave />
+      </section>
 
-      {children}
+      <section className="bg-white pb-12 md:pb-16">
+        <div className="container">
+          <div className="relative z-10 -mt-4 rounded-3xl bg-white p-4 shadow-xl ring-1 ring-sky-100 sm:p-6 md:-mt-6 md:p-8">
+            {children}
+
+          </div>
+        </div>
+      </section>
 
       {content && (
         <>
-          <section className="mt-12 max-w-4xl">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Use</h2>
-            <ol className="space-y-4">
-              {content.howTo.map((item) => (
-                <li key={item.step} className="flex gap-4">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center font-semibold">
-                    {item.step}
-                  </span>
-                  <p className="text-gray-700 pt-1">{item.text}</p>
-                </li>
-              ))}
-            </ol>
+          <section className="bg-sky-50 py-12 md:py-16">
+            <div className="container">
+              <h2 className="mb-6 text-2xl font-bold text-gray-900">How to Use</h2>
+              <ol className="grid gap-4 md:grid-cols-3">
+                {content.howTo.map((item) => (
+                  <li key={item.step} className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-sky-100">
+                    <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-blue-700 font-bold text-white shadow">
+                      {item.step}
+                    </span>
+                    <p className="text-gray-700">{item.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </section>
 
           {content.angle && (
-            <section className="mt-12 max-w-4xl">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Features</h2>
-              <p className="text-gray-600 leading-relaxed">{content.angle}</p>
+            <section className="bg-white py-12 md:py-16">
+              <div className="container">
+                <div className="max-w-3xl">
+                  <h2 className="mb-4 text-2xl font-bold text-gray-900">Key Features</h2>
+                  <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100 md:p-8">
+                    <p className="leading-relaxed text-gray-600">{content.angle}</p>
+                  </div>
+                </div>
+              </div>
             </section>
           )}
 
-          {content.howItWorks && (
-            <section className="mt-12 max-w-4xl">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
-              <p className="text-gray-600 leading-relaxed">{content.howItWorks}</p>
-            </section>
-          )}
-
-          <section className="mt-8 max-w-4xl">
-            <p className="text-gray-500 italic">{content.privacy}</p>
+          <section className="bg-sky-50 py-12 md:py-16">
+            <div className="container">
+              {host && (
+                <div className="mb-10 flex items-center gap-4">
+                  <img
+                    src={host.img}
+                    alt=""
+                    className="h-16 w-16 shrink-0 rounded-full bg-white object-cover shadow-md ring-2 ring-white md:h-20 md:w-20"
+                  />
+                  <div className="relative rounded-2xl bg-white px-5 py-3.5 shadow-sm">
+                    <span aria-hidden className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-white" />
+                    <p className="relative text-gray-700">{host.line}</p>
+                  </div>
+                </div>
+              )}
+              {content.howItWorks && (
+                <div className="max-w-3xl">
+                  <h2 className="mb-4 text-2xl font-bold text-gray-900">How It Works</h2>
+                  <p className="leading-relaxed text-gray-600">{content.howItWorks}</p>
+                </div>
+              )}
+              <p className="mt-8 max-w-3xl italic text-gray-500">{content.privacy}</p>
+            </div>
           </section>
 
           {content.faqs.length > 0 && (
-            <section id="faq" className="mt-16 max-w-4xl">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-              <div className="space-y-4">
-                {content.faqs.map((faq, i) => (
-                  <Card key={i}>
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                      <p className="text-gray-600">{faq.answer}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+            <section id="faq" className="bg-white py-12 md:py-16">
+              <div className="container">
+                <div className="max-w-3xl">
+                  <h2 className="mb-6 text-2xl font-bold text-gray-900">Frequently Asked Questions</h2>
+                  <div className="space-y-4">
+                    {content.faqs.map((faq, i) => (
+                      <div key={i} className="flex gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100">
+                        <span aria-hidden className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-sky-500 font-bold text-white">
+                          ?
+                        </span>
+                        <div>
+                          <h3 className="mb-2 font-semibold text-gray-900">{faq.question}</h3>
+                          <p className="text-gray-600">{faq.answer}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </section>
           )}
@@ -528,26 +620,30 @@ export function ToolLayout({ tool, children }: ToolLayoutProps) {
       )}
 
       {relatedTools.length > 0 && (
-        <section className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Related & Popular Tools</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {relatedTools.map((relatedTool) => (
-              <Link key={relatedTool.id} href={`/tools/${relatedTool.id}`}>
-                <Card className="h-full hover:shadow-md transition-shadow">
-                  <CardContent className="p-6 flex items-center justify-between">
+        <section className="bg-sky-50 py-12 md:py-16">
+          <div className="container">
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">Related & Popular Tools</h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              {relatedTools.map((relatedTool) => (
+                <Link
+                  key={relatedTool.id}
+                  href={`/tools/${relatedTool.id}`}
+                  className="group block rounded-2xl bg-white p-4 shadow-sm ring-1 ring-sky-100 transition hover:shadow-md"
+                >
+                  <ToolCardVisual toolId={relatedTool.id} />
+                  <div className="flex items-center justify-between gap-2 px-1 pb-1">
                     <div>
                       <h3 className="font-semibold text-gray-900">{relatedTool.name}</h3>
                       <p className="text-sm text-gray-500">{relatedTool.category}</p>
                     </div>
-                    <ArrowRight className="h-5 w-5 text-gray-400" />
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-sky-500 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       )}
-    </div>
     </>
   )
 }
